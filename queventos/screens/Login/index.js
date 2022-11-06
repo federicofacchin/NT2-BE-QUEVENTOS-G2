@@ -10,7 +10,7 @@ import GhostButton from '../../components/GhostButton'
 export default ()=> {
 
     const [ notValid, setNotValid ] = useState(true)
-    const [ hasAccount, setHasAccount ] = useState(false)
+    const [ hasAccount, setHasAccount ] = useState(true)
 
     return (
         <View style={styles.container}>

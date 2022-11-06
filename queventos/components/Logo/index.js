@@ -6,7 +6,7 @@ import styles from './styles'
 export default () => {
     return (
         <View style={styles.circle}>
-            <Megaphone></Megaphone>
+            <Megaphone size={32}></Megaphone>
         </View>
     )
 }
