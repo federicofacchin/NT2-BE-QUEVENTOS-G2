@@ -1,12 +1,11 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
-export default ({size})=>{
-  
+export default ({size, color})=>{
     return (
       <Ionicons
-        name="megaphone"
+        name="globe-outline"
         size={size}
-        color="#fff" />
+        color={color} />
     )
 }

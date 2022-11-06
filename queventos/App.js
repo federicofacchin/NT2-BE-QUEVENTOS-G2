@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import Login from './screens/Login'
+import Notificactions from './screens/Notifications'
 
 
 
@@ -9,6 +10,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Login></Login>
+      {/*<Notificactions></Notificactions>*/}
     </View>
   );
 }
