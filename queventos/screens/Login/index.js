@@ -7,18 +7,26 @@ import Title from '../../components/Title'
 import Input from '../../components/Input'
 import GhostButton from '../../components/GhostButton'
 import { auth } from "../../services/firebase"
-import { signIn, createUser } from "../../services/auth"
-import { emailValidator } from '../../helpers';
+import { signIn } from "../../services/auth"
+import helper from '../../helpers';
 
-export default ()=> {
-
-    const [ hasAccount, setHasAccount ] = useState(true)
-    const [ notValid, setNotValid ] = useState(true)
+const Login = ({navigation})=> {
 
     const [user, setUser] = useState({})
-    const [newUser, setNewUser] = useState({})
+    const [ notValid, setNotValid ] = useState(true)
 
+    useEffect(()=>{
 
+        const isValid =
+            user.email && user.password ? 
+            helper.emailValidator(user.email)
+            :
+            false
+
+        setNotValid(!isValid)
+
+    }, [user])
+    
     // Levanta las variables de entorno de las constantes de expo
     //console.log(Constants.manifest.extra)
 
@@ -37,76 +45,35 @@ export default ()=> {
                     <Logo></Logo>
                     <Title text={"Queventos"} layout={{marginTop: 8}}></Title>
                 </View>
-                {
-                    hasAccount
-                    ?
-                    <View style={styles.formContainer}>
-                        <Input
-                            label={"Email"}
-                            onChangeHandler={text => setUser({...user, email: text})}
-                        />
-                        <Input
-                            label={"Contraseña"}
-                            layout={{marginTop: 24}}
-                            onChangeHandler={text => setUser({...user, password: text})}
-                            isSecure={true}
-                        />
-                    </View>
-                    :
-                    <View style={styles.formContainer}>
-                        <Input
-                            label={"Nombre"}
-                            onChangeHandler={text => setNewUser({...newUser, name: text})}
-                        />
-                        <Input
-                            label={"Email"}
-                            layout={{marginTop: 24}}
-                            onChangeHandler={text => setNewUser({...newUser, email: text})}
-                        />
-                        <Input
-                            label={"Contraseña"}
-                            layout={{marginTop: 24}}
-                            onChangeHandler={text => setNewUser({...newUser, password: text})}
-                            helperText={"Mínimo 8 caracteres"}
-                            isSecure={true}
-                        />
-                    </View>
-                }
+                <View style={styles.formContainer}>
+                    <Input
+                        label={"Email"}
+                        onChangeHandler={text => setUser({...user, email: text})}
+                    />
+                    <Input
+                        label={"Contraseña"}
+                        layout={{marginTop: 24}}
+                        onChangeHandler={text => setUser({...user, password: text})}
+                        isSecure={true}
+                    />
+                </View>
             </ScrollView>
+
             <View>
-                {
-                    hasAccount
-                    ?
-                    <View>
-                        <Button
-                            title="Iniciar sesión"
-                            onPress={()=> {
-                                signIn(auth, user.email, user.password)
-                            }
-                            }
-                        />
-                        <GhostButton
-                            supportingText={"¿No tenés cuenta?"}
-                            action={"Creá una"}
-                            onPress={()=> setHasAccount(prev => !prev)}
-                        />
-                    </View>
-                    :
-                    <View>
-                        <Button
-                            title="Crear cuenta"
-                            onPress={()=> {
-                                createUser(auth, newUser.email, newUser.password)
-                            }}
-                        />
-                        <GhostButton
-                            supportingText={"¿Ya tenés una cuenta?"}
-                            action={"Iniciá sesión"}
-                            onPress={()=> setHasAccount(prev => !prev)}
-                        />
-                    </View>
+                <Button
+                    title="Iniciar sesión"
+                    disabled={notValid}
+                    onPress={()=> { signIn(auth, user.email, user.password) }}
+                />
+                <GhostButton
+                    supportingText={"¿No tenés cuenta?"}
+                    action={"Creá una"}
+                    onPress={() => { navigation.navigate('SignUp') }
                 }
+                />
             </View>
         </View>
     )
 }
+
+export default Login
