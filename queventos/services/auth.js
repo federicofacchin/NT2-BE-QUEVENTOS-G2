@@ -1,5 +1,5 @@
 import { auth } from "./firebase"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword , onAuthStateChanged } from "firebase/auth";
 
 
 const signIn = (auth, email, password) => {
@@ -10,9 +10,12 @@ const signIn = (auth, email, password) => {
         console.log("Usuario: " + user.uid)
     })
     .catch((error) => {
-        console.log("No se pudo iniciar sesión")
         const errorCode = error.code;
         const errorMessage = error.message;
+        if(error.code === 'auth/user-not-found'){
+            alert('Usuario invalido') 
+            // Crear un contexto , setear provider, aca se llamaria la funcion del context la cual va a mostrar la alerta creada en el contexto global(importada previamente)
+        }
     });
 }
 
@@ -30,5 +33,14 @@ const createUser = (auth, email, password) =>{
   });
 }
 
+const authStateListener = (setAuth)=>{
+  onAuthStateChanged(auth, (user) => {
+    setAuth(user)
+  })
+}
 
-export { signIn, createUser };
+const signOut = ()=>{
+  auth.signOut()
+}
+
+export { signIn, createUser, authStateListener, signOut };
