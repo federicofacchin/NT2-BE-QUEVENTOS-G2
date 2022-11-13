@@ -63,7 +63,7 @@ const Login = ({navigation})=> {
                 <Button
                     title="Iniciar sesión"
                     disabled={notValid}
-                    onPress={()=> { signIn(auth, user.email, user.password) }}
+                    onPress={()=> { signIn(auth, user.email, user.password)}}
                 />
                 <GhostButton
                     supportingText={"¿No tenés cuenta?"}
