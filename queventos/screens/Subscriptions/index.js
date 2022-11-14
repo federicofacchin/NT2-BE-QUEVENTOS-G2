@@ -15,7 +15,7 @@ export default ()=> {
     /*console.log(data[0])*/
 
     return (
-        <View>
+        <View style={styles.container}>
             <SubscriptionsFlatList subscriptions={subscriptions}>
                 
             </SubscriptionsFlatList>

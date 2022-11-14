@@ -2,13 +2,15 @@ import { TextInput, Text, View, StyleSheet } from 'react-native';
 import styles from './styles'
 
 
-export default ({label, layout, onChangeHandler, isSecure, helperText}) => {
+export default ({label, layout, placeholder, onChangeHandler, disabled, isSecure, helperText}) => {
 
     return (
         <View style={layout}>
           <Text style={styles.label}>{label}</Text>
           <TextInput
-            style={styles.input}
+            style={!disabled ? styles.input: [styles.input, styles.disabled]}
+            placeholder={placeholder}
+            disabled={disabled}
             secureTextEntry={isSecure}
             onChangeText={text => onChangeHandler(text)}
           />

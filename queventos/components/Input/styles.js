@@ -18,7 +18,12 @@ const styles = StyleSheet.create({
       fontSize: 12,
       lineHeight: 24,
       color: "#6b7280"
+    },
+    disabled: {
+      color: "#6b7280",
+      backgroundColor: "#f3f4f6"
     }
+
   });
 
 export default styles

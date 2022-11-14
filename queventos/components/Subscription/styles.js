@@ -1,4 +1,3 @@
-import { Flex } from 'native-base';
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -19,13 +18,12 @@ const styles = StyleSheet.create({
       color: "#111827"
     },
     subtitle: {
-        marginTop: 8,
-        marginBottom: 16,
+        marginTop: 4,
+        marginBottom: 8,
         color: "#374151"
     },
     data: {
         flex: 1,
-
     },
 
   });
