@@ -3,7 +3,6 @@ import { View , Button} from 'react-native'
 import styles from './styles'
 import notifications from '../../services/notifications'
 import NotificationFlatList from '../../components/NotificationFlatList'
-import { signOut } from '../../services/auth'
 
 
 export default ()=> {
@@ -18,10 +17,6 @@ export default ()=> {
     return (
         <View style={styles.container}>
            <NotificationFlatList notificactions={notifications}></NotificationFlatList>
-           <Button
-                title={"Cerrar sesión"}
-                onPress={()=> { signOut() }}
-           />
         </View>
     )
 }
