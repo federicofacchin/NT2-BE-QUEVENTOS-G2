@@ -1,9 +1,9 @@
 import { View,Text, TouchableOpacity} from "react-native";
-import Trash from "../Icon/Trash";
+import Arrow from "../Icon/Arrow";
 import styles from "./styles";
-import {subscriptions,cancelSubscription}  from '../../services/subscriptions';
+import {subscriptions}  from '../../services/subscriptions';
 
-export default ({subscription}) => {
+export default ({subscription, navigation}) => {
 
     const {name,address,id} = subscription
     return (
@@ -13,8 +13,8 @@ export default ({subscription}) => {
                 <Text style={styles.subtitle} >{address}</Text>
             </View>
             <View>
-                <TouchableOpacity onPress={ () => cancelSubscription(id)}>
-                    <Trash size={24} color={'#dc2626'}/>
+                <TouchableOpacity onPress={() => { navigation.navigate('Ubicación', { id })}}>
+                    <Arrow size={24} color={'#9ca3af'}/>
                 </TouchableOpacity>
             </View>
         </View> 

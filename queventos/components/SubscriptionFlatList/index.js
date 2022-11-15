@@ -1,12 +1,12 @@
 import { FlatList } from "react-native";
 import Subscription from "../Subscription"
 
-export default ({subscriptions})=>{
+export default ({subscriptions, navigation})=>{
 
     const renderSubscription = ({item})=>{
 
         return (
-            <Subscription subscription={item}/>
+            <Subscription subscription={item} navigation={navigation}/>
         )
     }
 
