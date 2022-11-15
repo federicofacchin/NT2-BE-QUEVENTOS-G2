@@ -1,9 +1,10 @@
 import Constants from 'expo-constants';
 import { useState, useEffect } from 'react'
-import { ScrollView, View, Button } from 'react-native'
+import { ScrollView, View, Button, Text, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import Logo from '../../components/Logo'
 import Title from '../../components/Title'
+import Alert from '../../components/Alert';
 import Input from '../../components/Input'
 import GhostButton from '../../components/GhostButton'
 import { auth } from "../../services/firebase"
@@ -26,6 +27,10 @@ const Login = ({navigation})=> {
         setNotValid(!isValid)
 
     }, [user])
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [alertMessage, setAlertMessage] = useState('')
     
     // Levanta las variables de entorno de las constantes de expo
     //console.log(Constants.manifest.extra)
@@ -46,6 +51,11 @@ const Login = ({navigation})=> {
                     <Title text={"Queventos"} layout={{marginTop: 8}}></Title>
                 </View>
                 <View style={styles.formContainer}>
+                    { alertMessage
+                        ?
+                        <Alert message={alertMessage}/>
+                        : null
+                    }
                     <Input
                         label={"Email"}
                         onChangeHandler={text => setUser({...user, email: text})}
@@ -60,15 +70,35 @@ const Login = ({navigation})=> {
             </ScrollView>
 
             <View>
-                <Button
+
+                <View style={styles.buttonWrapper}>
+                    { isLoading ?
+                    <View style={styles.loader}>
+                        <ActivityIndicator size="small" color="#38bdf8" />
+                    </View>
+                    : null }
+                    <Button
                     title="Iniciar sesión"
-                    disabled={notValid}
-                    onPress={()=> { signIn(auth, user.email, user.password)}}
+                    disabled={ isLoading ? true : notValid}
+                    
+                    onPress= {()=> {
+
+                        setIsLoading(prev => !prev)
+
+                        signIn(auth, user.email, user.password)
+                        .catch(err => setAlertMessage(err.message))
+                        .finally(()=> {
+                            setIsLoading(prev => !prev)
+                        })
+                    }
+                    }
                 />
+                </View>
+                
                 <GhostButton
                     supportingText={"¿No tenés cuenta?"}
                     action={"Creá una"}
-                    onPress={() => { navigation.navigate('SignUp') }
+                    onPress={() => { !isLoading ? navigation.navigate('SignUp') : null }
                 }
                 />
             </View>

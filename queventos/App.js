@@ -12,6 +12,7 @@ import Globe from './components/Icon/Globe';
 import Notifications from './screens/Notifications'
 import NotificationBell from './components/Icon/NotificationBell';
 import Subscriptions from './screens/Subscriptions';
+import LocationDetails from './screens/LocationDetails';
 import Newspaper from './components/Icon/Newspaper';
 import Profile from './screens/Profile'
 import Person from './components/Icon/Person';
@@ -28,6 +29,32 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
+  const SubscriptionStack = createNativeStackNavigator();
+
+  const SubscriptionStackScreen = ({navigation})=>{
+    return(
+      <SubscriptionStack.Navigator>
+
+      <SubscriptionStack.Screen
+      name="Mis subscripciones"
+      component={Subscriptions}
+      options={
+        {
+          headerShown: true
+        }
+      }/>
+      <SubscriptionStack.Screen
+      name="Ubicación"
+      component={LocationDetails}
+      options={
+        {
+          headerShown: true
+        }
+      }/>
+
+</SubscriptionStack.Navigator>
+    )
+  }
 
   return (
 
@@ -67,9 +94,10 @@ export default function App() {
           />
           <Tab.Screen
             name="Mis suscripciones"
-            component={Subscriptions}
+            component={SubscriptionStackScreen}
             options={
               {
+                headerShown: false,
                 tabBarLabel: "Suscripciones",
                 tabBarIcon: ({ color, size }) => (
                   <Newspaper size={size} color={color} />

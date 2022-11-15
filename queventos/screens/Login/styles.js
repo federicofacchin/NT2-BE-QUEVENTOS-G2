@@ -16,6 +16,19 @@ const styles = StyleSheet.create({
     formContainer: {
       marginTop: 32
     },
+    alertContainer: {
+      marginBottom: 16
+    },
+    buttonWrapper: {
+      position: "relative"
+    },
+    loader: {
+      position: 'absolute',
+      top:"25%",
+      right: 0,
+      left: 0,
+      zIndex: 10
+    },
     footer: {
       alignItems: 'center',
       justifyContent: 'center',

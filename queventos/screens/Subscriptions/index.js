@@ -5,8 +5,10 @@ import SubscriptionsFlatList from '../../components/SubscriptionFlatList'
 import {subscriptions} from '../../services/subscriptions'
 
 
-export default ()=> {
+export default ({navigation})=> {
     const [data, setData] = useState([])
+
+    //console.log(navigation)
 
     useEffect(()=>{
         setData(subscriptions)
@@ -16,7 +18,7 @@ export default ()=> {
 
     return (
         <View style={styles.container}>
-            <SubscriptionsFlatList subscriptions={subscriptions}>
+            <SubscriptionsFlatList subscriptions={subscriptions} navigation={navigation}>
                 
             </SubscriptionsFlatList>
         </View>
