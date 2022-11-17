@@ -7,9 +7,24 @@ const styles = StyleSheet.create({
       backgroundColor: "#fff",
       padding: 16
     },
-    button: {
+    wrapper: {
+      flex: 1,
+      alignSelf: "stretch",
+    },
+    containedButtonWrapper: {
         marginTop: 32,
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        position: "relative"
+    },
+    loader: {
+      flex: 1,
+      alignSelf: "stretch",
+      justifyContent: "center",
+      position: 'absolute',
+      top:"25%",
+      right: 0,
+      left: 0,
+      zIndex: 10
     }
   });
 

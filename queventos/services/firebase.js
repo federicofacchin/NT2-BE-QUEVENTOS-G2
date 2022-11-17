@@ -2,8 +2,7 @@ import Constants from 'expo-constants';
 
 import { initializeApp } from 'firebase/app'
 import { getAuth } from "firebase/auth"
-import { getStorage } from "firebase/storage"
-import { getFirestore, collection, getDoc } from "firebase/firestore"
+import { getFirestore } from "firebase/firestore"
 
 // Inicializa la conexión firebase con nuestro proyecto
 export const firebaseApp = initializeApp({
@@ -23,7 +22,11 @@ export const firebaseApp = initializeApp({
 
 
 // Exporta esta constante para usarla en la vista del login
-export const auth = getAuth(firebaseApp)
+const auth = getAuth(firebaseApp)
 
+// Exporta esta referencia para pedir los datos a la persistencia
 const db = getFirestore(firebaseApp)
-const storage = getStorage(firebaseApp)
+
+export {
+    auth, db
+}

@@ -1,46 +1,83 @@
 import { useState, useEffect } from 'react'
-import { View, ScrollView, Button} from 'react-native'
-import {userData} from '../../services/profile'
+import { View, ActivityIndicator, Button} from 'react-native'
 import styles from './styles'
+import FullPageException from '../../components/FullPageException'
 import Input from '../../components/Input'
-
+import { getUser, updateUser } from '../../services/user'
 
 
 export default ()=> {
 
-    const [data, setData] = useState([])
+    const [data, setData] = useState()
+    const [isLoading, setIsLoading] = useState(true)
+    const [errorMessage, setErrorMessage] = useState()
+    const [isUpdating, setIsUpdating] = useState(false)
 
     useEffect(()=>{
-        setData(userData)
+        getUser()
+        .then(data => setData(data))
+        .catch(err => setErrorMessage(err.message))
+        .finally(()=> {
+            setIsLoading(prev => !prev)
+        })
+        
     }, [])
+
+    /*useEffect(()=>{
+        console.log("Detectó un cambio: " + data)
+
+    }, [data])*/
     
     const [ notValid, setNotValid ] = useState(false)
 
+
     return (
         <View style={styles.container}>
-            <ScrollView>
-                <View >
-                    <Input
-                        label={"Nombre"}
-                        placeholder={data.name}
-                        onChangeHandler={text => setData({...data, name: text})}
-                    />
-                    <Input
-                        label={"Email"}
-                        layout={{marginTop: 24}}
-                        disabled={true}
-                        placeholder={data.email}
-                        onChangeHandler={text => false}
-                        
-                    />
-                    <View style={styles.button}>
-                        <Button 
-                            title="Guardar"
-                            disabled={notValid}
+            { isLoading ? 
+                <View style={styles.loader}><ActivityIndicator size="large" color="#38bdf8"/></View>
+                : 
+                <View style={styles.wrapper}>
+                    { errorMessage 
+                    ?
+                    <FullPageException message={errorMessage}/>
+                    :
+                    <View >
+                        <Input
+                            label={"Nombre"}
+                            placeholder={data.name}
+                            onChangeHandler={text => setData({...data, name: text})}
                         />
+                        <Input
+                            label={"Email"}
+                            layout={{marginTop: 24}}
+                            disabled={true}
+                            placeholder={data.email}
+                            onChangeHandler={text => false}
+                            
+                        />
+                        <View style={styles.containedButtonWrapper}>
+                                { isUpdating ?
+                                <View style={styles.loader}>
+                                    <ActivityIndicator size="small" color="#38bdf8" />
+                                </View>
+                                : null }
+                                <Button 
+                                    title="Guardar"
+                                    disabled={isUpdating}
+                                    onPress={() => { 
+                                        setIsUpdating(prev => !prev)
+                                        updateUser(data)
+                                        .then(result => result)
+                                        .catch(err => err)
+                                        .finally(()=> {setIsUpdating(prev => !prev)})
+                                    }}
+                                />
+
+                        </View>
                     </View>
+                    }
                 </View>
-            </ScrollView>
+                }
         </View>
    
     )
