@@ -27,7 +27,7 @@ const signIn = (auth, email, password)=> signInWithEmailAndPassword(auth, email,
 })
 .catch((error) => {
     const errorCode = error.code;
-    const errorMessage = error.message;
+    //const errorMessage = error.message;
 
     let message
 
