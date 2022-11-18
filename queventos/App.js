@@ -17,7 +17,7 @@ import Newspaper from './components/Icon/Newspaper';
 import Profile from './screens/Profile'
 import Person from './components/Icon/Person';
 import SignOutButton from './components/SignOutButton';
-
+import AuthContext from './globals/AuthContext';
 
 export default function App() {
 
@@ -57,92 +57,94 @@ export default function App() {
   }
 
   return (
+    <AuthContext.Provider value={{authenticationData,setAuthenticationData}}>
 
-    <NavigationContainer>
-      {
-        authenticationData ?
-        <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarActiveTintColor: '#0ea5e9',
-          tabBarInactiveTintColor: '#6b7280',
-        })}
-        >
-          <Tab.Screen
-            name="Ubicaciones"
-            component={Home}
-            options={
-              {
-                headerShown: false,
-                tabBarLabel: "Ubicaciones",
-                tabBarIcon: ({ color, size }) => (
-                  <Globe size={size} color={color} />
-                )
+      <NavigationContainer>
+        {
+          authenticationData ?
+          <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarActiveTintColor: '#0ea5e9',
+            tabBarInactiveTintColor: '#6b7280',
+          })}
+          >
+            <Tab.Screen
+              name="Ubicaciones"
+              component={Home}
+              options={
+                {
+                  headerShown: false,
+                  tabBarLabel: "Ubicaciones",
+                  tabBarIcon: ({ color, size }) => (
+                    <Globe size={size} color={color} />
+                  )
+                }
               }
-            }
-          />
-          <Tab.Screen
-            name="Mis notificaciones"
-            component={Notifications}
-            options={
-              {
-                tabBarLabel: "Notificaciones",
-                tabBarIcon: ({ color, size }) => (
-                  <NotificationBell size={size} color={color} />
-                )
+            />
+            <Tab.Screen
+              name="Mis notificaciones"
+              component={Notifications}
+              options={
+                {
+                  tabBarLabel: "Notificaciones",
+                  tabBarIcon: ({ color, size }) => (
+                    <NotificationBell size={size} color={color} />
+                  )
+                }
               }
-            }
-          />
-          <Tab.Screen
-            name="Mis suscripciones"
-            component={SubscriptionStackScreen}
-            options={
-              {
-                headerShown: false,
-                tabBarLabel: "Suscripciones",
-                tabBarIcon: ({ color, size }) => (
-                  <Newspaper size={size} color={color} />
-                )
+            />
+            <Tab.Screen
+              name="Mis suscripciones"
+              component={SubscriptionStackScreen}
+              options={
+                {
+                  headerShown: false,
+                  tabBarLabel: "Suscripciones",
+                  tabBarIcon: ({ color, size }) => (
+                    <Newspaper size={size} color={color} />
+                  )
+                }
               }
-            }
-          />
-          <Tab.Screen
-            name="Mi perfil"
-            component={Profile}
-            options={({navigation, route }) => ({
-              tabBarLabel: "Perfil",
-              headerRight: () => (
-                <SignOutButton/>
-              ),
-              tabBarIcon: ({ color, size }) => (
-                <Person size={size} color={color} />
-              )
-            })}
-          />
-
-        </Tab.Navigator>
-        :
-        <Stack.Navigator>
+            />
+            <Tab.Screen
+              name="Mi perfil"
+              component={Profile}
+              options={({navigation, route }) => ({
+                tabBarLabel: "Perfil",
+                headerRight: () => (
+                  <SignOutButton/>
+                ),
+                tabBarIcon: ({ color, size }) => (
+                  <Person size={size} color={color} />
+                )
+              })}
+            />
+  
+          </Tab.Navigator>
+          :
+          <Stack.Navigator>
+                <Stack.Screen
+                name="Login"
+                component={Login}
+                options={
+                  {
+                    headerShown: false
+                  }
+                }/>
               <Stack.Screen
-              name="Login"
-              component={Login}
-              options={
-                {
-                  headerShown: false
-                }
-              }/>
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={
-                {
-                  headerShown: false
-                }
-              }/>
-        </Stack.Navigator>
-
-      }
-    </NavigationContainer>
-  );
+                name="SignUp"
+                component={SignUp}
+                options={
+                  {
+                    headerShown: false
+                  }
+                }/>
+          </Stack.Navigator>
+  
+        }
+      </NavigationContainer>
+    </AuthContext.Provider>
+    );
 }
 
 const styles = StyleSheet.create({

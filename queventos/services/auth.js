@@ -1,7 +1,5 @@
 import { auth } from "./firebase"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword , onAuthStateChanged } from "firebase/auth";
-
-
 /*const signIn = (auth, email, password) => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -19,11 +17,12 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword , onAuthStat
     });
 }*/
 
-const signIn = (auth, email, password)=> signInWithEmailAndPassword(auth, email, password)
+const signIn = (auth, email, password, setAuthenticationData)=> signInWithEmailAndPassword(auth, email, password)
 .then((userCredential) => {
     const user = userCredential.user;
-    console.log("Nuevo inicio de sesión")
-    console.log("Usuario: " + user.uid)
+    setAuthenticationData(user)
+    //console.log("Nuevo inicio de sesión")
+    //console.log("Usuario: " + user.uid)
 })
 .catch((error) => {
     const errorCode = error.code;

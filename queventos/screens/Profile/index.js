@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { View, ActivityIndicator, Button} from 'react-native'
 import styles from './styles'
 import FullPageException from '../../components/FullPageException'
 import Input from '../../components/Input'
 import { getUser, updateUser } from '../../services/user'
-
+import AuthContext from '../../globals/AuthContext'
 
 export default ()=> {
 
@@ -12,9 +12,11 @@ export default ()=> {
     const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState()
     const [isUpdating, setIsUpdating] = useState(false)
+    const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
 
     useEffect(()=>{
-        getUser()
+        console.log(authenticationData)
+        getUser(authenticationData.uid)
         .then(data => setData(data))
         .catch(err => setErrorMessage(err.message))
         .finally(()=> {
@@ -66,7 +68,7 @@ export default ()=> {
                                     disabled={isUpdating}
                                     onPress={() => { 
                                         setIsUpdating(prev => !prev)
-                                        updateUser(data)
+                                        updateUser(data,authenticationData.uid)
                                         .then(result => result)
                                         .catch(err => err)
                                         .finally(()=> {setIsUpdating(prev => !prev)})

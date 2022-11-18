@@ -1,9 +1,9 @@
 import { db } from "./firebase"
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 
-const userId = "sI95hZXXc3flD6ql62nIxJ0Anem2"
+//const userId = "sI95hZXXc3flD6ql62nIxJ0Anem2"
 
-const getUser = ()=> {
+const getUser = (userId)=> {
     const docRef = doc(db, "Users", `${userId}`);
     //const docRef = doc(db, "Users", "1");
     
@@ -12,7 +12,7 @@ const getUser = ()=> {
 
 }
 
-const updateUser = (data) =>{
+const updateUser = (data,userId) =>{
     const {name} = data
     const docRef = doc(db, "Users", `${userId}`);
 
