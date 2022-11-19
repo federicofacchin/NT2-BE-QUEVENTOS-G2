@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react'
 import { View , Text} from 'react-native'
 import styles from './styles'
-
+import { getAllLocations,getLocation } from '../../services/locations'
 
 
 
 export default ()=> {
-    /*const [data, setData] = useState([])
+    //const [data, setData] = useState([])
+    const [locations,setLocations] = useState([])
 
     useEffect(()=>{
-        setData(notifications)
-    }, [])*/
+        const locations = getAllLocations;
+        setLocations(locations)
+    }, [])
     
-    /*console.log(data[0])*/
-
+    console.log(locations)
+    
     return (
         <View style={styles.container}>
-           <Text>Acá iría el mapa</Text>
+           <Text>Aca va el mapa</Text>
         </View>
     )
 }
