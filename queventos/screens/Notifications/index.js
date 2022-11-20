@@ -1,25 +1,26 @@
 import { useState, useEffect, useContext } from 'react'
 import { View , Button} from 'react-native'
 import styles from './styles'
-import notifications from '../../services/notifications'
+import { getNotifications } from '../../services/notifications'
 import NotificationFlatList from '../../components/NotificationFlatList'
 import AuthContext from '../../globals/AuthContext'
 
-//const authenticationData = useContext(AuthContext)
 
 export default ()=> {
+
+    const { authenticationData } = useContext(AuthContext)
     const [data, setData] = useState([])
 
     useEffect(()=>{
-        setData(notifications)
-        //console.log(authenticationData)
+        getNotifications(authenticationData.uid).then(data => {
+            setData(data)
+        })
+        .catch(err => console.log(err))
     }, [])
-    
-    /*console.log(data[0])*/
 
     return (
         <View style={styles.container}>
-           <NotificationFlatList notificactions={notifications}></NotificationFlatList>
+           <NotificationFlatList notificactions={data}></NotificationFlatList>
         </View>
     )
 }

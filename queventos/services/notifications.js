@@ -1,18 +1,10 @@
-const notifications = [
-    {
-        title: '¡Happy hour 2x1!',
-        description: "Este viernes de 20:00 a 21:00 disfrutá de un happy hour en cerveza y tragos.",
-        date: '28/10/22',
-        location: 'Lo de Pepe',
-        coordinates: ''
-    },
-    {
-        title: 'Charly & The Walkie Talkies en el Garden',
-        description: "Acompañanos este sábado en la presentación del nuevo trabajo de estudio de la banda platense.",
-        date: '22/10/22',
-        location: 'Garden Groove Club',
-        coordinates: '',
-    }
-]
+import { db } from "./firebase"
+import { doc, getDoc } from "firebase/firestore";
 
-export default notifications
+const getNotifications = (userId)=> {
+    const docRef = doc(db, "Users", `${userId}`);
+    return getDoc(docRef).then(doc => doc.exists() ? {id: doc.id, data: doc.data().notifications } : Promise.reject(new Error("No encontramos tus datos")))
+
+}
+
+export { getNotifications }

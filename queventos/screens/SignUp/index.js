@@ -9,15 +9,20 @@ import GhostButton from '../../components/GhostButton'
 import { auth } from "../../services/firebase"
 import { createUser } from "../../services/auth"
 import helper from '../../helpers';
+import { addUser, searchUserByMail } from '../../services/user'
+
 
 export default ({navigation})=> {
+    //const data = {name: "Nico", email: "sistemas.nicolas@gmail.com"}
+    //searchUserByMail(data)
+    //addUser(data)
 
     const [user, setUser] = useState({})
     const [ notValid, setNotValid ] = useState(true)
     const passwordLength = 8
 
     useEffect(()=>{
-
+        
         const isValid =
             user.name && user.email && user.password ? 
             (helper.emailValidator(user.email) && helper.lengthValidator(user.password, passwordLength))

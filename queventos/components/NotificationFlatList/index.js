@@ -2,7 +2,7 @@ import { FlatList } from "react-native";
 import Notificaction from "../Notificaction";
 
 export default ({notificactions})=>{
-
+    console.log(notificactions.data)
     const renderNotificaction = ({item})=>{
 
         return (
@@ -12,7 +12,7 @@ export default ({notificactions})=>{
 
     return (
         <FlatList
-            data={notificactions}
+            data={notificactions.data}
             renderItem={renderNotificaction}
         />
     )
