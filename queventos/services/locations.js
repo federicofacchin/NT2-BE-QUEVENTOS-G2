@@ -1,17 +1,18 @@
+import { darkColors } from "@rneui/base";
 import { collection, doc, setDoc ,getDocs, getDoc} from "firebase/firestore"; 
 import {db} from "./firebase"
 
 const locationId = 'mBsjUL0FDdnrGGUHBJQQ';
 
 const getAllLocations = () => getDocs(collection(db, "Locations")).then(docs => {
-    let locations = []
+   let locations = []
+   docs.forEach(doc => locations.push({id: doc.id, data: doc.data()}))
+   return locations
+}).catch(err => err)
 
 
-    //docs.forEach(doc  => console.log(doc.data()))
-    docs.forEach(doc => locations.push(doc.data()))
-    //console.log(locations)
-    return locations
-});
+
+
 
 console.log(getAllLocations)
 //docs.forEach(doc => doc.data())

@@ -10,15 +10,18 @@ export default ()=> {
     const [locations,setLocations] = useState([])
 
     useEffect(()=>{
-        const locations = getAllLocations;
-        setLocations(locations)
+        getAllLocations().then(data => {
+            setLocations(data)
+            console.log(data)
+        })
     }, [])
-    
-    console.log(locations)
+
+    //console.log(locations)
     
     return (
         <View style={styles.container}>
            <Text>Aca va el mapa</Text>
+           {locations.map((location, i) => <Text key={location.id}> {location.data.name}</Text>)}
         </View>
     )
 }
