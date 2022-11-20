@@ -7,7 +7,12 @@ const locationId = 'mBsjUL0FDdnrGGUHBJQQ';
 const getAllLocations = () => getDocs(collection(db, "Locations")).then(docs => {
    let locations = []
    docs.forEach(doc => locations.push({id: doc.id, data: doc.data()}))
-});
+   return locations
+}).catch(err => err)
+
+
+
+
 
 console.log(getAllLocations)
 //docs.forEach(doc => doc.data())
