@@ -1,5 +1,6 @@
 import { auth } from "./firebase"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword , onAuthStateChanged } from "firebase/auth";
+import { addUser } from "./user"
 /*const signIn = (auth, email, password) => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -43,11 +44,18 @@ const signIn = (auth, email, password, setAuthenticationData)=> signInWithEmailA
 });
 
 
-const createUser = (auth, email, password) => createUserWithEmailAndPassword(auth, email, password)
+const createUser = (auth, data, setAuthenticationData) => {
+
+  const { name, email, password } = data
+
+  return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
-    console.log("Se creó un nuevo usuario")
-    console.log("Usuario: " + user)
+    //console.log("Se creó un nuevo usuario")
+    //console.log("Usuario: " + user)
+    setAuthenticationData(user)
+    addUser(name, email, password, user.uid)
+
     return user
   })
   .catch((error) => {
@@ -66,6 +74,9 @@ const createUser = (auth, email, password) => createUserWithEmailAndPassword(aut
     }
     throw new Error(message);
   });
+}
+  
+ 
 
 
 const authStateListener = (setAuth)=>{

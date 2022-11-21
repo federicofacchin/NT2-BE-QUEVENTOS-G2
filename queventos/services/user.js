@@ -31,13 +31,16 @@ const searchUserByMail = (data) => {
         .then(result => !result.empty ? result.docs[0].data() : null)
 }
 
-const addUser = (data) =>{
-        const docRef = addDoc(collection(db, "Users"), {
-        name: data.name,
-        email: data.email,
+const addUser = (name, email, password, id) => {
+    //console.log("Voy a registrar este usuario:")
+    //console.log(name)
+    //console.log(id)
+    const newUser = {
+        name: name,
+        email: email,
         notifications: []
-    }).then(data => (data))
-    //console.log("Se creo el documento con el id: " , docRef.id);
+    }
+    setDoc(doc(db, "Users", `${id}`), newUser)
 }
 
 export { getUser, updateUser, addUser, searchUserByMail };

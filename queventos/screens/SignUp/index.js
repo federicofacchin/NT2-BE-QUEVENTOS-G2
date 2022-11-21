@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { ScrollView, View, ActivityIndicator, Button } from 'react-native'
 import styles from './styles'
 import Logo from '../../components/Logo'
@@ -10,6 +10,7 @@ import GhostButton from '../../components/GhostButton'
 import { auth } from "../../services/firebase"
 import { createUser } from "../../services/auth"
 import helper from '../../helpers';
+import authenticationContext from '../../globals/AuthContext'
 import { addUser, searchUserByMail } from '../../services/user'
 
 
@@ -17,7 +18,7 @@ export default ({navigation})=> {
     //const data = {name: "Nico", email: "sistemas.nicolas@gmail.com"}
     //searchUserByMail(data)
     //addUser(data)
-
+    const {authenticationData, setAuthenticationData } = useContext(authenticationContext)
     const [user, setUser] = useState({})
     const [ notValid, setNotValid ] = useState(true)
     const passwordLength = 8
@@ -95,8 +96,7 @@ export default ({navigation})=> {
 
                     setIsLoading(prev => !prev)
 
-                    createUser(auth, user.email, user.password)
-                    .then(result => addUser(user))
+                    createUser(auth, user, setAuthenticationData)
                     .catch(err => setAlertMessage(err.message))
                     .finally(()=> {
                         setIsLoading(prev => !prev)
