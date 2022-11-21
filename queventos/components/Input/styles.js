@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     label: {
-      fontWeight: 600,
+      fontWeight: "600",
     },
     input: {
       marginTop: 6,

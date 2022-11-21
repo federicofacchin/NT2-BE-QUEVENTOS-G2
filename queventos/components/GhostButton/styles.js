@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
       },
       action: {
         marginLeft: 4,
-        fontWeight: 600,
+        fontWeight: "600",
         color: "#0ea5e9"
       }
   });
