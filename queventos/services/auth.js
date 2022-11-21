@@ -1,5 +1,6 @@
 import { auth } from "./firebase"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword , onAuthStateChanged } from "firebase/auth";
+import { addUser } from "./user"
 /*const signIn = (auth, email, password) => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -43,19 +44,40 @@ const signIn = (auth, email, password, setAuthenticationData)=> signInWithEmailA
 });
 
 
-const createUser = (auth, email, password) =>{
-    createUserWithEmailAndPassword(auth, email, password)
+const createUser = (auth, data, setAuthenticationData) => {
+
+  const { name, email, password } = data
+
+  return createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
-    console.log("Se creó un nuevo usuario")
-    console.log("Usuario: " + user)
+    //console.log("Se creó un nuevo usuario")
+    //console.log("Usuario: " + user)
+    setAuthenticationData(user)
+    addUser(name, email, password, user.uid)
+
+    return user
   })
   .catch((error) => {
-    console.log("No se pudo crear el usuario")
+    //console.log("No se pudo crear el usuario")
     const errorCode = error.code;
-    const errorMessage = error.message;
+    //const errorMessage = error.message;
+
+    let message
+
+    if(errorCode === 'auth/email-already-in-use'){
+        message = "El email ya fue registrado por otro usuario"
+    }
+    else {
+        console.log(errorCode)
+        message = "Algo salió mal"
+    }
+    throw new Error(message);
   });
 }
+  
+ 
+
 
 const authStateListener = (setAuth)=>{
   onAuthStateChanged(auth, (user) => {
