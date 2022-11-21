@@ -14,7 +14,7 @@ const getAllLocations = () => getDocs(collection(db, "Locations")).then(docs => 
 
 
 
-console.log(getAllLocations)
+//console.log(getAllLocations)
 //docs.forEach(doc => doc.data())
 const getLocation = (locationId) => {
     const docRef = doc(db, "Locations", `${locationId}`);
@@ -34,7 +34,7 @@ const createLocation = (data,locationId) =>{
     })
 }
 
-const updateLocation = (data,locationId) =>{
+const updateLocation = (data,locationId) => {
     const {name} = data
     const docRef = doc(db, "Locations", `${locationId}`);
 
