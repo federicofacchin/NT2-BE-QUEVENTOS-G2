@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { View , Button, Text} from 'react-native'
+import { View , Button, ActivityIndicator, Text} from 'react-native'
 import styles from './styles'
 import SubscriptionsFlatList from '../../components/SubscriptionFlatList'
 import {subscriptions} from '../../services/subscriptions'
