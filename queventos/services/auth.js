@@ -43,19 +43,30 @@ const signIn = (auth, email, password, setAuthenticationData)=> signInWithEmailA
 });
 
 
-const createUser = (auth, email, password) =>{
-    createUserWithEmailAndPassword(auth, email, password)
+const createUser = (auth, email, password) => createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
     console.log("Se creó un nuevo usuario")
     console.log("Usuario: " + user)
+    return user
   })
   .catch((error) => {
-    console.log("No se pudo crear el usuario")
+    //console.log("No se pudo crear el usuario")
     const errorCode = error.code;
-    const errorMessage = error.message;
+    //const errorMessage = error.message;
+
+    let message
+
+    if(errorCode === 'auth/email-already-in-use'){
+        message = "El email ya fue registrado por otro usuario"
+    }
+    else {
+        console.log(errorCode)
+        message = "Algo salió mal"
+    }
+    throw new Error(message);
   });
-}
+
 
 const authStateListener = (setAuth)=>{
   onAuthStateChanged(auth, (user) => {
