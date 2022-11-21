@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
       padding: 16,
       borderColor: '#e5e7eb',
       borderWidth: 1,
-      borderRadius: 8
+      borderRadius: 8,
+      zIndex: 1000,
     },
     meta: {
       marginBottom: 16,

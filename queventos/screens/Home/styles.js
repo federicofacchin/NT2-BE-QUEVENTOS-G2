@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     },
     map: {
       width: '100%',
-      height: '80%'
+      height: '80%',
+      flex: 1
     },
     bubble: {
       flex: 1,

@@ -8,6 +8,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import { REACT_APP_GOOGLE_MAP_API_KEY } from '@env'
 //import { getLocationPermission } from '../../services/map'
 import * as Location from 'expo-location';
+import LocationPreview from '../../components/LocationPreview'
 
 
 
@@ -26,6 +27,10 @@ import * as Location from 'expo-location';
     const [locations,setLocations] = useState([])
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+
+
+    const [selectedLocation, setSelectedLocation] = useState(true);
+
     
     useEffect(()=>{
         (async () => {
@@ -47,7 +52,16 @@ import * as Location from 'expo-location';
     
     return (
         <View style={styles.container}>
-            
+
+        
+            {selectedLocation ?
+                // Los datos del componente están harcodeados
+                // Hay que pasarle como prop la ubicación y los handlers para activar la ruta y para abrir el detalle
+                // Al detalle le debe pasar el id
+                <LocationPreview></LocationPreview>
+                :
+                null
+            }
             <MapView 
                 style={styles.map}
                 initialRegion={{
