@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     },
     title: {
       fontSize: 16,
-      fontWeight: 700,
+      fontWeight: "700",
       lineHeight: 24,
       color: "#111827"
     },
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     location: {
         marginLeft: 8,
-        fontWeight: 600,
+        fontWeight: "600",
         color: "#0ea5e9"
     }
   });

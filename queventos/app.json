@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "queventos",
     "name": "queventos",
     "slug": "queventos",
     "version": "1.0.0",

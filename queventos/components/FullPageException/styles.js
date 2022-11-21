@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     title: {
       marginTop: 8,
       fontSize: 16,
-      fontWeight: 700,
+      fontWeight: "700",
       lineHeight: 24,
       color: "#374151"
     },

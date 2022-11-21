@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/ngrok": "^4.1.0",
     "@expo/webpack-config": "^0.17.0",
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
@@ -17,8 +18,10 @@
     "@rneui/themed": "^4.0.0-rc.7",
     "dotenv": "^16.0.3",
     "expo": "~46.0.16",
+    "expo-cli": "^6.0.0",
+    "expo-permissions": "~13.2.0",
     "expo-status-bar": "~1.4.0",
-    "firebase": "^9.13.0",
+    "firebase": "9.6.11",
     "native-base": "^3.4.20",
     "react": "18.0.0",
     "react-dom": "18.0.0",
@@ -26,7 +29,8 @@
     "react-native-safe-area-context": "4.3.1",
     "react-native-screens": "~3.15.0",
     "react-native-svg": "12.3.0",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "schema-utils": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
