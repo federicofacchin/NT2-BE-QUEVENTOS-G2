@@ -36,7 +36,7 @@ const signIn = (auth, email, password, setAuthenticationData)=> signInWithEmailA
         message = "El email o la contraseña son incorrectos"
     } 
     else {
-        console.log(errorCode)
+        //console.log(errorCode)
         message = "Algo salió mal"
     }
     throw new Error(message);
