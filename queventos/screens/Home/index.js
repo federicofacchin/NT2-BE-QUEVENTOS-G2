@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Platform, View , Text, Button} from 'react-native'
 import styles from './styles'
 import { getAllLocations, getLocation } from '../../services/locations'
-import MapView, { Marker, Polyline, Callout } from 'react-native-maps'
+import MapView, { Marker, Polyline/*, Callout*/ } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions';
 //import Constants from 'expo-constants';
 import { REACT_APP_GOOGLE_MAP_API_KEY } from '@env'
@@ -28,9 +28,15 @@ import LocationPreview from '../../components/LocationPreview'
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
-
-    const [selectedLocation, setSelectedLocation] = useState(true);
-
+    const [selectedLocation, setSelectedLocation] = useState('');
+    const undoSelection = () => {
+        setSelectedLocation('')
+    }
+    const showRoute = (location)=>{
+        const {latitude, longitude } = location.data.coordinates
+        //console.log(latitude, longitude)
+        //setDestination({ latitude: latitude, longitude: longitude })
+    }
     
     useEffect(()=>{
         (async () => {
@@ -44,7 +50,6 @@ import LocationPreview from '../../components/LocationPreview'
 
         getAllLocations().then(data => {
             setLocations(data)
-            //console.log(data)
         }).catch(err => console.log(err))  
     
     }, [])
@@ -58,7 +63,7 @@ import LocationPreview from '../../components/LocationPreview'
                 // Los datos del componente están harcodeados
                 // Hay que pasarle como prop la ubicación y los handlers para activar la ruta y para abrir el detalle
                 // Al detalle le debe pasar el id
-                <LocationPreview></LocationPreview>
+                <LocationPreview location={selectedLocation} onPressDirections={showRoute} onPressClose={undoSelection}></LocationPreview>
                 :
                 null
             }
@@ -80,25 +85,15 @@ import LocationPreview from '../../components/LocationPreview'
                     const { latitude,longitude } = location.data.coordinates
                     const { name } = location.data.name
                     return(
-                    <Marker
+                        <Marker 
                         key={location.id} 
                         title={name}
                         description={"description"}
                         coordinate={ { latitude: latitude, longitude: longitude }}
-                        
-                    >
-                        <Callout>
-                            <View style={styles.bubble}>
-                                <Text>Name: `{location.data.name}`</Text>
-                                <Button 
-                                    title="Como llego"
-                                    onPress={() => { 
-                                        setDestination({ latitude: latitude, longitude: longitude })             
-                                    }}
-                                />
-                            </View>
-                        </Callout>
-                    </Marker>
+                        onPress={() => { 
+                            setSelectedLocation(location)          
+                        }}
+                    />
                     )
                 })}
                 { destination != "" ?

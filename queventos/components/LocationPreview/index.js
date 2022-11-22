@@ -3,18 +3,24 @@ import styles from './styles'
 import Close from '../Icon/Close'
 
 
-const LocationPreview = () => {
+const LocationPreview = ({location, onPressDirections, onPressClose}) => {
+
+    //console.log(location)
+   // const { name, address, coordinates } = location.data
+
+    //console.log(onPressDirections)
+
     return (
         <View style={styles.container}>
             <View style={styles.meta}>
-                <Text style={styles.title}>Garden Groove</Text>
-                <Text>Olivos 123, CABA</Text>
+                <Text style={styles.title}>{location.data.name}</Text>
+                <Text>{location.data.address}</Text>
             </View>
-            <TouchableOpacity style={styles.closePreviewButton}>
+            <TouchableOpacity style={styles.closePreviewButton} onPress={()=> onPressClose()}>
                 <Close size={24} color={"#9ca3af"}></Close>
             </TouchableOpacity>
             <View style={styles.actionsContainer}>
-                <TouchableOpacity style={[styles.action, {marginRight: 4}]}>
+                <TouchableOpacity style={[styles.action, {marginRight: 4}]} onPress={()=> onPressDirections(location)}>
                     <Text>Cómo llegar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.action, {marginLeft: 4}]}>
