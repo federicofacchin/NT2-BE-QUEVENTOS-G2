@@ -5,24 +5,32 @@ import styles from './styles'
 import {subscriptions, cancelSubscription} from '../../services/subscriptions'
 import EventLogFlatList from '../../components/EventLogFlatList'
 import Store from '../../components/Icon/Store'
-
+import { getLocation } from '../../services/locations'
 
 export default ({ route, navigation })=> {
     const [ data, setData] = useState([])
     const [hasNotifications, setHasNotifications] = useState()
     useEffect(()=>{
         const { id } = route.params
-        const location = subscriptions.find(obj => {
+        getLocation(id)
+        .then(data =>
+            {
+                console.log("Datos de la ubicación")
+                console.log(data)
+                setData(data)
+            }
+        )
+        /*const location = subscriptions.find(obj => {
             return obj.id === id;
           })
           setData(location)
-          setHasNotifications(location.notifications.length > 0)
+          setHasNotifications(location.notifications.length > 0)*/
     }, [])
 
 
     return (
         <View style={styles.container}>
-            <View style={styles.square}>
+            {/*<View style={styles.square}>
                 <Store size={32} color={"#6b7280"}></Store>
             </View>
             <View style={styles.mediaContainer}>
@@ -44,7 +52,7 @@ export default ({ route, navigation })=> {
 
             <View>
                 <Button title="Desuscribir" color="#dc2626"></Button>
-            </View>
+            </View>*/}
         </View>
         
     )
