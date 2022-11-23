@@ -31,11 +31,11 @@ import LocationPreview from '../../components/LocationPreview'
     const [selectedLocation, setSelectedLocation] = useState('');
     const undoSelection = () => {
         setSelectedLocation('')
+        
     }
     const showRoute = (location)=>{
         const {latitude, longitude } = location.data.coordinates
-        //console.log(latitude, longitude)
-        //setDestination({ latitude: latitude, longitude: longitude })
+        setDestination({ latitude: latitude, longitude: longitude })
     }
     
     useEffect(()=>{
@@ -79,10 +79,11 @@ import LocationPreview from '../../components/LocationPreview'
                     draggable 
                     coordinate={origin}
                     onDragEnd={(direction) => { 
+                        setOrigin(direction.nativeEvent.coordinate)
                     }}
                 />
                 { locations.map((location) => {
-                    const { latitude,longitude } = location.data.coordinates
+                    const { latitude, longitude } = location.data.coordinates
                     const { name } = location.data.name
                     return(
                         <Marker 
@@ -91,7 +92,8 @@ import LocationPreview from '../../components/LocationPreview'
                         description={"description"}
                         coordinate={ { latitude: latitude, longitude: longitude }}
                         onPress={() => { 
-                            setSelectedLocation(location)          
+                            setDestination();
+                            setSelectedLocation(location)
                         }}
                     />
                     )
