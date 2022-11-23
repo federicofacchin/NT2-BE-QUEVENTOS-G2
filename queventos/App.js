@@ -17,11 +17,11 @@ import Newspaper from './components/Icon/Newspaper';
 import Profile from './screens/Profile'
 import Person from './components/Icon/Person';
 import SignOutButton from './components/SignOutButton';
-import AuthContext from './globals/AuthContext';
+import AuthContext, {authData} from './globals/AuthContext';
 
 export default function App() {
 
-  const [authenticationData, setAuthenticationData] = useState(false)
+  const [authenticationData, setAuthenticationData] = useState(authData)
 
   useEffect(()=>{
     authStateListener(setAuthenticationData)
