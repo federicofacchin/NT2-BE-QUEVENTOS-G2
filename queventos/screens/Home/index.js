@@ -15,6 +15,8 @@ import LocationPreview from '../../components/LocationPreview'
 //export default ({destination})=> {
     export default ()=> {
     //const [data, setData] = useState([])
+    
+
     const [origin, setOrigin] = useState({
         latitude: -34.5496608737801,
         longitude: -58.45406203477659
@@ -67,7 +69,7 @@ import LocationPreview from '../../components/LocationPreview'
                 :
                 null
             }
-            <MapView 
+            <MapView
                 style={styles.map}
                 initialRegion={{
                     latitude: origin.latitude,

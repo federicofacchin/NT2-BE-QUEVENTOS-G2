@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { View , Button, ActivityIndicator, Text} from 'react-native'
 import styles from './styles'
 import SubscriptionsFlatList from '../../components/SubscriptionFlatList'
-import {subscriptions} from '../../services/subscriptions'
-
+import {getSubscriptions} from '../../services/subscriptions'
+import AuthContext from '../../globals/AuthContext'
 
 export default ({navigation})=> {
-    const [data, setData] = useState([])
+    const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
+    const [subscriptions, setSubscriptions] = useState([])
 
     //console.log(navigation)
 
     useEffect(()=>{
-        setData(subscriptions)
+        getSubscriptions(authenticationData.uid).then((results) => setSubscriptions(results)).catch(error => error)
+        
     }, [])
     
-    /*console.log(data[0])*/
 
     return (
         <View style={styles.container}>
