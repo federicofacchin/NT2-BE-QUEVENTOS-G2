@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import Constants from 'expo-constants'
 
 const styles = StyleSheet.create({
     container: {
@@ -7,12 +8,14 @@ const styles = StyleSheet.create({
       backgroundColor: "#fff",
       alignItems: 'center',
       justifyContent: 'center',
-      position: "relative"
+      position: "relative",
+      marginTop: Constants.statusBarHeight
     },
     map: {
       width: '100%',
       height: '80%',
       flex: 1
+      
     },
     bubble: {
       flex: 1,

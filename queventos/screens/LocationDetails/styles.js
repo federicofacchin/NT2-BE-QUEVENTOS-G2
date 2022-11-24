@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
     title: {
       fontSize: 24,
-      fontWeight: 700,
+      fontWeight: "700",
       color: "#111827",
       marginTop: 16,
       marginBottom: 8
