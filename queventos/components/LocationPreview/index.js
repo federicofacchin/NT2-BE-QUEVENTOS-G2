@@ -3,7 +3,7 @@ import styles from './styles'
 import Close from '../Icon/Close'
 
 
-const LocationPreview = ({location, onPressDirections, onPressClose}) => {
+const LocationPreview = ({location, onPressDirections, onPressClose,onPressDetails}) => {
 
     //console.log(location)
    // const { name, address, coordinates } = location.data
@@ -23,7 +23,7 @@ const LocationPreview = ({location, onPressDirections, onPressClose}) => {
                 <TouchableOpacity style={[styles.action, {marginRight: 4}]} onPress={()=> onPressDirections(location)}>
                     <Text>Cómo llegar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.action, {marginLeft: 4}]}>
+                <TouchableOpacity style={[styles.action, {marginLeft: 4}]} onPress={() => onPressDetails(location)}>
                     <Text>Detalles</Text>
                 </TouchableOpacity>
             </View>

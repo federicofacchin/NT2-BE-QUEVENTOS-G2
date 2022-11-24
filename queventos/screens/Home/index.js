@@ -13,7 +13,8 @@ import LocationPreview from '../../components/LocationPreview'
 
 
 //export default ({destination})=> {
-    export default ()=> {
+    export default ({navigation})=> {
+        //console.log(navigation)
     //const [data, setData] = useState([])
     
 
@@ -40,6 +41,13 @@ import LocationPreview from '../../components/LocationPreview'
         setDestination({ latitude: latitude, longitude: longitude })
     }
     
+
+    const showLocationDetails = (location)=> {
+        const {id} = location
+        navigation.navigate('Detalle', { id })
+    }
+
+
     useEffect(()=>{
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
@@ -65,7 +73,7 @@ import LocationPreview from '../../components/LocationPreview'
                 // Los datos del componente están harcodeados
                 // Hay que pasarle como prop la ubicación y los handlers para activar la ruta y para abrir el detalle
                 // Al detalle le debe pasar el id
-                <LocationPreview location={selectedLocation} onPressDirections={showRoute} onPressClose={undoSelection}></LocationPreview>
+                <LocationPreview location={selectedLocation} onPressDirections={showRoute} onPressClose={undoSelection} onPressDetails={showLocationDetails}></LocationPreview>
                 :
                 null
             }
@@ -89,6 +97,7 @@ import LocationPreview from '../../components/LocationPreview'
                     const { name } = location.data.name
                     return(
                         <Marker 
+                        pinColor={'#0ea5e9'}
                         key={location.id} 
                         title={name}
                         description={"description"}
