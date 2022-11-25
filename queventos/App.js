@@ -30,7 +30,32 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
   const SubscriptionStack = createNativeStackNavigator();
+  const HomeStack = createNativeStackNavigator();
 
+  const HomeStackScreen = ({navigation}) =>{
+    return(
+      <HomeStack.Navigator>
+        <HomeStack.Screen
+          name="Mapa"
+          component={Home}
+          options={
+            {
+              headerShown: false
+            }
+          }
+        />
+         <HomeStack.Screen
+          name="Detalle"
+          component={LocationDetails}
+          options={
+            {
+              headerShown: true
+            }
+          }
+        />
+      </HomeStack.Navigator>
+    )
+  }
   const SubscriptionStackScreen = ({navigation})=>{
     return(
       <SubscriptionStack.Navigator>
@@ -52,7 +77,7 @@ export default function App() {
         }
       }/>
 
-</SubscriptionStack.Navigator>
+      </SubscriptionStack.Navigator>
     )
   }
 
@@ -70,7 +95,7 @@ export default function App() {
           >
             <Tab.Screen
               name="Ubicaciones"
-              component={Home}
+              component={HomeStackScreen}
               options={
                 {
                   headerShown: false,

@@ -31,9 +31,9 @@ export default ({ route, navigation })=> {
                 //setContador(contador => contador += element)//acum + element
                 return previousValue
             },0)
-            console.log(data.notifications.length)
+            //console.log(data.notifications.length)
             setContador(data.notifications.length)
-            
+            //console.log(navigation)
             //console.log(data.notifications.length)
             //data.notifications.length > 0 ?
             //console.log(hasNotifications)
