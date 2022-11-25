@@ -7,6 +7,16 @@ const styles = StyleSheet.create({
       backgroundColor: "#fff",
       padding: 16
     },
+    loader: {
+      flex: 1,
+      alignSelf: 'stretch',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: '25%',
+      right: 0,
+      left: 0,
+      zIndex: 10,
+    },
     square: {
         marginTop: 16,
         width: 56,
