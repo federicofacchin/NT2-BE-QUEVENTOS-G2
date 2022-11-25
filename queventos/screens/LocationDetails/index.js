@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useContext } from 'react'
 import { ScrollView, View, Text, Button, ActivityIndicator} from 'react-native'
 import Divider from '../../components/Divider'
 import styles from './styles'
@@ -7,15 +7,17 @@ import EventLogFlatList from '../../components/EventLogFlatList'
 import Store from '../../components/Icon/Store'
 import { getLocation } from '../../services/locations'
 import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
+import AuthContext from '../../globals/AuthContext'
+
 
 export default ({ route, navigation })=> {
     const [ data, setData] = useState([])
     const [ isLoading, setIsLoading ] = useState(true)
     const [ contador, setContador ] = useState()
+    const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
 
     useEffect(()=>{
         const { id } = route.params
-
         getLocation(id)
         .then(data =>
             {
@@ -63,8 +65,8 @@ export default ({ route, navigation })=> {
                 </View>
                }
             <View>
-                <Button title="Desuscribir" color="#dc2626"></Button>
-          </View>
+                <Button title="Desuscribir" color="#dc2626" onPress={() => cancelSubscription(route.params.id,authenticationData.uid)}></Button>
+            </View>
 
         </View>
 }
