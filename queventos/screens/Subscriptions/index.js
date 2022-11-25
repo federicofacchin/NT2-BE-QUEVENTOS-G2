@@ -16,6 +16,7 @@ export default ({navigation})=> {
         getSubscriptions(authenticationData.uid).then((results) => setSubscriptions(results))
         .catch(error => error)
         .finally(()=>setIsLoading(prev=> !prev))
+
     }, [])
     
 

@@ -6,11 +6,13 @@ import {subscriptions, cancelSubscription} from '../../services/subscriptions'
 import EventLogFlatList from '../../components/EventLogFlatList'
 import Store from '../../components/Icon/Store'
 import { getLocation } from '../../services/locations'
+import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
 
 export default ({ route, navigation })=> {
     const [ data, setData] = useState([])
-    const [isLoading, setIsLoading]= useState(true)
+    const [ isLoading, setIsLoading ] = useState(true)
     const [ contador, setContador ] = useState()
+
     useEffect(()=>{
         const { id } = route.params
 
@@ -31,10 +33,11 @@ export default ({ route, navigation })=> {
         .finally(()=>setIsLoading(prev=>!prev))
     }, [])
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         console.log("Nueva Ejecucion 2")
         console.log(contador)
-    }, [contador])
+    }, [contador])*/
+
     
     return (
         <View style={styles.container}>
@@ -42,7 +45,7 @@ export default ({ route, navigation })=> {
     isLoading?
     <View style={styles.loader}><ActivityIndicator size="large" color='#38bdf8'></ActivityIndicator></View>
          :
-         <View>
+         <View style={{flex: 1}}>
             <View style={styles.square}>
                 <Store size={32} color={"#6b7280"}></Store>
             </View>

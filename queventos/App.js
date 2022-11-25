@@ -49,7 +49,8 @@ export default function App() {
           component={LocationDetails}
           options={
             {
-              headerShown: true
+              headerShown: true,
+              title: "Ubicación"
             }
           }
         />
@@ -102,7 +103,8 @@ export default function App() {
                   tabBarLabel: "Ubicaciones",
                   tabBarIcon: ({ color, size }) => (
                     <Globe size={size} color={color} />
-                  )
+                  ),
+                  unmountOnBlur: true,
                 }
               }
             />

@@ -115,7 +115,7 @@ import LocationPreview from '../../components/LocationPreview'
                     destination={destination}
                     apikey={REACT_APP_GOOGLE_MAP_API_KEY}
                     strokeColor="#0ea5e9"
-                    strokeWidth={10}/> :
+                    strokeWidth={6}/> :
                 null }
             </MapView>
            {/*{locations.map((location, i) => <Text key={location.id}> {location.data.name}</Text>)}*/}
