@@ -11,10 +11,9 @@ import * as Location from 'expo-location';
 import LocationPreview from '../../components/LocationPreview'
 
 
-
-//export default ({destination})=> {
-    export default ({navigation})=> {
-        //console.log(navigation)
+    export default ({route, navigation})=> {
+    //console.log(navigation.getState());
+    //console.log(route);
     //const [data, setData] = useState([])
     
 
@@ -47,6 +46,34 @@ import LocationPreview from '../../components/LocationPreview'
         navigation.navigate('Detalle', { id })
     }
 
+    useEffect(()=>{
+
+        if((route.params?.geopoint)){
+        const{latitude, longitude}= route.params.geopoint
+        /*  console.log(route.params.geopoint);
+            console.log(route.params.geopoint.latitude)
+            console.log(route.params.geopoint.longitude)
+            console.log(latitude);
+            console.log(longitude); 
+
+            const testLocation = {
+                latitude: -34.546030957411006,
+                longitude: -58.449353943519
+            }
+
+            console.log("Ruta harcodeada: ", testLocation)
+            console.log("Ruta param: ", paramLocation)
+            console.log("Latitud harcodeada:", typeof testLocation.latitude)
+        */
+        
+        const paramLocation = {}
+        paramLocation.latitude = latitude
+        paramLocation.longitude = longitude
+
+        setDestination(paramLocation)
+        }
+    }, [route.params?.geopoint])
+
 
     useEffect(()=>{
         (async () => {
@@ -68,11 +95,7 @@ import LocationPreview from '../../components/LocationPreview'
     return (
         <View style={styles.container}>
 
-        
             {selectedLocation ?
-                // Los datos del componente están harcodeados
-                // Hay que pasarle como prop la ubicación y los handlers para activar la ruta y para abrir el detalle
-                // Al detalle le debe pasar el id
                 <LocationPreview location={selectedLocation} onPressDirections={showRoute} onPressClose={undoSelection} onPressDetails={showLocationDetails}></LocationPreview>
                 :
                 null
