@@ -64,6 +64,7 @@ export default ({ route, navigation })=> {
                }
             <View>
                 <Button title="Desuscribir" color="#dc2626"></Button>
+
           </View>
 
         </View>

@@ -5,10 +5,7 @@ import { getNotifications } from '../../services/notifications'
 import NotificationFlatList from '../../components/NotificationFlatList'
 import AuthContext from '../../globals/AuthContext'
 
-
-
-
-export default ()=> {
+export default ({navigation})=> {
     const [isLoading, setIsLoading]= useState(true)
     const { authenticationData } = useContext(AuthContext)
     const [data, setData] = useState([])
@@ -26,7 +23,7 @@ export default ()=> {
             {isLoading? <View style= {styles.loader}><ActivityIndicator size="large"
             color="#38bdf8"
             /></View>:
-           <NotificationFlatList notificactions={data}></NotificationFlatList>}
+           <NotificationFlatList notificactions={data} navigation={navigation}></NotificationFlatList>}
         </View>
     )
 }

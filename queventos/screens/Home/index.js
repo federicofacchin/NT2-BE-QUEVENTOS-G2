@@ -13,8 +13,9 @@ import LocationPreview from '../../components/LocationPreview'
 
 
 //export default ({destination})=> {
-    export default ({navigation})=> {
-        //console.log(navigation)
+    export default ({route, navigation})=> {
+  //      console.log(navigation.getState());
+       // console.log(route);
     //const [data, setData] = useState([])
     
 
@@ -46,6 +47,21 @@ import LocationPreview from '../../components/LocationPreview'
         const {id} = location
         navigation.navigate('Detalle', { id })
     }
+
+    useEffect(()=>{
+
+        if((route.params?.geopoint)){
+            const{latitude, longitude}= route.params.geopoint
+            /*console.log(route.params.geopoint);
+          console.log(route.params.geopoint.latitude)
+         console.log(route.params.geopoint.longitude)
+         console.log(latitude);
+         console.log(longitude); 
+         setDestination( route.params.geopoint)
+      */
+         console.log(typeof latitude)
+        }
+    }, [route.params?.geopoint])
 
 
     useEffect(()=>{
