@@ -24,7 +24,6 @@ const modifySubscription = (activeUser,locationId,userId) => {
     .then(data => data.subscribers)
     .then(results =>{ 
         const subscribers = []
-        //console.log( 'resultados :' ,results)
         results.map(resultado => subscribers.push(resultado))
         return subscribers
     }).then(subscribers => {
@@ -47,10 +46,7 @@ const modifySubscription = (activeUser,locationId,userId) => {
         
     }).then(modifiedSubscribers => {
         const locationDocRef = doc(db,'Locations', locationId)
-        //console.log(modifiedSubscribers)
         return updateDoc(locationDocRef, {subscribers: modifiedSubscribers})
     }).catch(err => console.log(err))
 }
-    //hay que revisar si esta o no el userId y luego tengo que hacer el update en firebase , le tengo que pasar un objeto a firebase y enviar el array del objeto
-    // el ultimo paso es devolver (un .then que devuelve un true or false)
 export {modifySubscription, getSubscriptions};
