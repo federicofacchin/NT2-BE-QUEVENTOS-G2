@@ -2,7 +2,7 @@ import { useState, useEffect,useContext } from 'react'
 import { ScrollView, View, Text, Button, ActivityIndicator} from 'react-native'
 import Divider from '../../components/Divider'
 import styles from './styles'
-import {subscriptions, cancelSubscription} from '../../services/subscriptions'
+import {subscriptions, modifySubscription} from '../../services/subscriptions'
 import EventLogFlatList from '../../components/EventLogFlatList'
 import Store from '../../components/Icon/Store'
 import { getLocation } from '../../services/locations'
@@ -15,7 +15,7 @@ export default ({ route, navigation })=> {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ contador, setContador ] = useState()
     const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
-
+    const [ activeSubscription, setActiveSubscription ] = useState(false)
     useEffect(()=>{
         const { id } = route.params
         getLocation(id)
@@ -25,12 +25,11 @@ export default ({ route, navigation })=> {
                  return data
             }
         ).then(data => {
-            const count = data.notifications.reduce((previousValue, element) => {
-                previousValue + element
-                    return previousValue
-            },0)
-    
             setContador(data.notifications.length)
+            const subscription = data.subscribers.find(subscriber => subscriber === authenticationData.uid)
+            //console.log(subscription)
+            subscription ? setActiveSubscription(true)  : setActiveSubscription(false)
+            //console.log(activeSubscription)
         })
         .finally(()=>setIsLoading(prev=>!prev))
     }, [])
@@ -65,7 +64,17 @@ export default ({ route, navigation })=> {
                 </View>
                }
             <View>
-                <Button title="Desuscribir" color="#dc2626" onPress={() => cancelSubscription(route.params.id,authenticationData.uid)}></Button>
+                {(activeSubscription)
+                // devuelve una promesa hay que validar que sea verdadera
+                ?
+                <Button title="Desuscribir" color="#dc2626" onPress={() => {
+                    modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
+                }}></Button>
+                :
+                <Button title="Subscribir" color="#38bdf8" onPress={() => {
+                    modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
+                }}></Button>
+                }
             </View>
 
         </View>
