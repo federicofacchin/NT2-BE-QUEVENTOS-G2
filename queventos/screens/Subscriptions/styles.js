@@ -6,6 +6,10 @@ const styles = StyleSheet.create({
       alignSelf: "stretch",
       backgroundColor: "#fff",
     },
+    wrapper: {
+      flex: 1,
+      alignSelf: "stretch",
+    },
     loader: {
       flex: 1,
       alignSelf: 'stretch',
