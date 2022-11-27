@@ -9,12 +9,11 @@ import { REACT_APP_GOOGLE_MAP_API_KEY } from '@env'
 //import { getLocationPermission } from '../../services/map'
 import * as Location from 'expo-location';
 import LocationPreview from '../../components/LocationPreview'
+import Toast from '../../components/Toast'
 
-
-
-//export default ({destination})=> {
-    export default ({navigation})=> {
-        //console.log(navigation)
+    export default ({route, navigation})=> {
+    //console.log(navigation.getState());
+    //console.log(route);
     //const [data, setData] = useState([])
     
 
@@ -33,20 +32,61 @@ import LocationPreview from '../../components/LocationPreview'
 
     const [selectedLocation, setSelectedLocation] = useState('');
     const undoSelection = () => {
-        setSelectedLocation('')
-        
+        setSelectedLocation('') 
     }
+
     const showRoute = (location)=>{
         const {latitude, longitude } = location.data.coordinates
         setDestination({ latitude: latitude, longitude: longitude })
     }
     
-
     const showLocationDetails = (location)=> {
         const {id} = location
         navigation.navigate('Detalle', { id })
     }
 
+    const [showToast, setShowToast] = useState(false);
+
+    useEffect(()=>{
+
+        if((route.params?.geopoint)){
+        const{latitude, longitude}= route.params.geopoint
+        /*  console.log(route.params.geopoint);
+            console.log(route.params.geopoint.latitude)
+            console.log(route.params.geopoint.longitude)
+            console.log(latitude);
+            console.log(longitude); 
+
+            const testLocation = {
+                latitude: -34.546030957411006,
+                longitude: -58.449353943519
+            }
+
+            console.log("Ruta harcodeada: ", testLocation)
+            console.log("Ruta param: ", paramLocation)
+            console.log("Latitud harcodeada:", typeof testLocation.latitude)
+        */
+        
+        const paramLocation = {}
+        paramLocation.latitude = latitude
+        paramLocation.longitude = longitude
+
+        setDestination(paramLocation)
+        }
+    }, [route.params?.geopoint])
+
+    useEffect(()=>{
+        if((route.params?.updatedSubscription)){
+            //console.log("Cambio suscripcion: ", route.params?.updatedSubscription)
+
+            undoSelection('')
+            setShowToast(prev => !prev)
+
+            setTimeout(()=>{
+                setShowToast(prev => !prev)
+            }, 3000)
+        }
+    }, [route.params?.updatedSubscription])
 
     useEffect(()=>{
         (async () => {
@@ -68,11 +108,13 @@ import LocationPreview from '../../components/LocationPreview'
     return (
         <View style={styles.container}>
 
-        
+            {showToast ?
+                <Toast message={"Cambios guardados"}></Toast>
+                :
+                null
+            }
+
             {selectedLocation ?
-                // Los datos del componente están harcodeados
-                // Hay que pasarle como prop la ubicación y los handlers para activar la ruta y para abrir el detalle
-                // Al detalle le debe pasar el id
                 <LocationPreview location={selectedLocation} onPressDirections={showRoute} onPressClose={undoSelection} onPressDetails={showLocationDetails}></LocationPreview>
                 :
                 null

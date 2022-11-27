@@ -3,7 +3,9 @@ import Calendar from '../Icon/Calendar'
 import Globe from '../Icon/Globe'
 import styles from './styles'
 
-export default ({notificaction}) => {
+export default ({notificaction, navigation}) => {
+//console.log(notificaction)
+//.log(navigation)
 
     return (
         <View style={styles.container}>
@@ -13,9 +15,14 @@ export default ({notificaction}) => {
                 <Calendar size={16} color={"#6b7280"}></Calendar>
                 <Text style={styles.date}>{notificaction.date}</Text>
             </View>
-            <TouchableOpacity style={styles.metaContainer}>
+            <TouchableOpacity 
+            style={styles.metaContainer}
+             onPress={()=>
+                navigation.navigate("Ubicaciones",{screen: "Mapa", params:{geopoint: notificaction.coordinates} })} 
+    >
                 <Globe size={16} color={"#0ea5e9"}></Globe>
-                <Text style={styles.location}>{notificaction.location}</Text>
+                <Text style={styles.location}>
+                    {notificaction.location}</Text>
             </TouchableOpacity>
         </View>
     )

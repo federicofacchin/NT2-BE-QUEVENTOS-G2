@@ -6,24 +6,34 @@ import {subscriptions, modifySubscription} from '../../services/subscriptions'
 import EventLogFlatList from '../../components/EventLogFlatList'
 import Store from '../../components/Icon/Store'
 import { getLocation } from '../../services/locations'
+<<<<<<< HEAD
 import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
 import AuthContext from '../../globals/AuthContext'
 
+=======
+import { useNavigationState } from '@react-navigation/native';
+>>>>>>> 84931158059878e9263296b53c17a6be10bdcd83
 
 export default ({ route, navigation })=> {
     const [ data, setData] = useState([])
     const [ isLoading, setIsLoading ] = useState(true)
     const [ contador, setContador ] = useState()
+<<<<<<< HEAD
     const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
     const [ activeSubscription, setActiveSubscription ] = useState(false)
+=======
+    const routeNames = useNavigationState(state => state.routeNames)
+    //console.log(routeNames)
+
+>>>>>>> 84931158059878e9263296b53c17a6be10bdcd83
     useEffect(()=>{
         const { id } = route.params
         getLocation(id)
-        .then(data =>
-            {
+        .then(data => {
                 setData(data)
-                 return data
+                setContador(data.notifications.length)
             }
+<<<<<<< HEAD
         ).then(data => {
             setContador(data.notifications.length)
             const subscription = data.subscribers.find(subscriber => subscriber === authenticationData.uid)
@@ -31,6 +41,9 @@ export default ({ route, navigation })=> {
             subscription ? setActiveSubscription(true)  : setActiveSubscription(false)
             //console.log(activeSubscription)
         })
+=======
+        )
+>>>>>>> 84931158059878e9263296b53c17a6be10bdcd83
         .finally(()=>setIsLoading(prev=>!prev))
     }, [])
 
@@ -64,6 +77,7 @@ export default ({ route, navigation })=> {
                 </View>
                }
             <View>
+<<<<<<< HEAD
                 {(activeSubscription)
                 // devuelve una promesa hay que validar que sea verdadera
                 ?
@@ -76,6 +90,26 @@ export default ({ route, navigation })=> {
                 }}></Button>
                 }
             </View>
+=======
+                <Button
+                    title="Desuscribir"
+                    color="#dc2626"
+                    onPress={() => { 
+                        /*navigation.navigate({
+                            name: routeNames[0],
+                            params: { updatedSubscription: true },
+                            merge: true,
+                          });*/
+                          navigation.reset({
+                            index: 0,
+                            routes: [
+                                {name: routeNames[0], params: { updatedSubscription: true }}]
+                            })
+                    }}
+                />    
+
+          </View>
+>>>>>>> 84931158059878e9263296b53c17a6be10bdcd83
 
         </View>
 }
