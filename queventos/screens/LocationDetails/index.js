@@ -21,26 +21,21 @@ export default ({ route, navigation })=> {
         const { id } = route.params
         getLocation(id)
         .then(data =>
-
             {
                 setData(data)
                 setContador(data.notifications.length)
+            return data
             }
-        ).then(data => {
-            setContador(data.notifications.length)
+        ).then(data => { setContador(data.notifications.length > 0 ? data.notifications.length : 0)
             const subscription = data.subscribers.find(subscriber => subscriber === authenticationData.uid)
-            //console.log(subscription)
-            subscription ? setActiveSubscription(true)  : setActiveSubscription(false)
-            //console.log(activeSubscription)
+            return subscription
+            
+        }).then(subscription => {
+            subscription ? setActiveSubscription(true) : setActiveSubscription(false)
         })
+        .catch(err => console.log(err))
         .finally(()=>setIsLoading(prev=>!prev))
     }, [])
-
-    /*useEffect(()=>{
-        console.log("Nueva Ejecucion 2")
-        console.log(contador)
-    }, [contador])*/
-
     
     return (
         <View style={styles.container}>

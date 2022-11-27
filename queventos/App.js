@@ -129,7 +129,8 @@ export default function App() {
                   tabBarLabel: "Suscripciones",
                   tabBarIcon: ({ color, size }) => (
                     <Newspaper size={size} color={color} />
-                  )
+                  ),
+                unmountOnBlur: true,
                 }
               }
             />
