@@ -6,30 +6,24 @@ import {subscriptions, cancelSubscription} from '../../services/subscriptions'
 import EventLogFlatList from '../../components/EventLogFlatList'
 import Store from '../../components/Icon/Store'
 import { getLocation } from '../../services/locations'
-import { clickProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
+import { useNavigationState } from '@react-navigation/native';
 
 export default ({ route, navigation })=> {
     const [ data, setData] = useState([])
     const [ isLoading, setIsLoading ] = useState(true)
     const [ contador, setContador ] = useState()
+    const routeNames = useNavigationState(state => state.routeNames)
+    //console.log(routeNames)
 
     useEffect(()=>{
         const { id } = route.params
 
         getLocation(id)
-        .then(data =>
-            {
+        .then(data => {
                 setData(data)
-                 return data
+                setContador(data.notifications.length)
             }
-        ).then(data => {
-            const count = data.notifications.reduce((previousValue, element) => {
-                previousValue + element
-                    return previousValue
-            },0)
-    
-            setContador(data.notifications.length)
-        })
+        )
         .finally(()=>setIsLoading(prev=>!prev))
     }, [])
 
@@ -63,7 +57,22 @@ export default ({ route, navigation })=> {
                 </View>
                }
             <View>
-                <Button title="Desuscribir" color="#dc2626"></Button>
+                <Button
+                    title="Desuscribir"
+                    color="#dc2626"
+                    onPress={() => { 
+                        /*navigation.navigate({
+                            name: routeNames[0],
+                            params: { updatedSubscription: true },
+                            merge: true,
+                          });*/
+                          navigation.reset({
+                            index: 0,
+                            routes: [
+                                {name: routeNames[0], params: { updatedSubscription: true }}]
+                            })
+                    }}
+                />    
 
           </View>
 

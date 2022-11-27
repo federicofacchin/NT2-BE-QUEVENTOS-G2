@@ -9,7 +9,7 @@ import { REACT_APP_GOOGLE_MAP_API_KEY } from '@env'
 //import { getLocationPermission } from '../../services/map'
 import * as Location from 'expo-location';
 import LocationPreview from '../../components/LocationPreview'
-
+import Toast from '../../components/Toast'
 
     export default ({route, navigation})=> {
     //console.log(navigation.getState());
@@ -32,19 +32,20 @@ import LocationPreview from '../../components/LocationPreview'
 
     const [selectedLocation, setSelectedLocation] = useState('');
     const undoSelection = () => {
-        setSelectedLocation('')
-        
+        setSelectedLocation('') 
     }
+
     const showRoute = (location)=>{
         const {latitude, longitude } = location.data.coordinates
         setDestination({ latitude: latitude, longitude: longitude })
     }
     
-
     const showLocationDetails = (location)=> {
         const {id} = location
         navigation.navigate('Detalle', { id })
     }
+
+    const [showToast, setShowToast] = useState(false);
 
     useEffect(()=>{
 
@@ -74,6 +75,18 @@ import LocationPreview from '../../components/LocationPreview'
         }
     }, [route.params?.geopoint])
 
+    useEffect(()=>{
+        if((route.params?.updatedSubscription)){
+            //console.log("Cambio suscripcion: ", route.params?.updatedSubscription)
+
+            undoSelection('')
+            setShowToast(prev => !prev)
+
+            setTimeout(()=>{
+                setShowToast(prev => !prev)
+            }, 3000)
+        }
+    }, [route.params?.updatedSubscription])
 
     useEffect(()=>{
         (async () => {
@@ -94,6 +107,12 @@ import LocationPreview from '../../components/LocationPreview'
     
     return (
         <View style={styles.container}>
+
+            {showToast ?
+                <Toast message={"Cambios guardados"}></Toast>
+                :
+                null
+            }
 
             {selectedLocation ?
                 <LocationPreview location={selectedLocation} onPressDirections={showRoute} onPressClose={undoSelection} onPressDetails={showLocationDetails}></LocationPreview>
