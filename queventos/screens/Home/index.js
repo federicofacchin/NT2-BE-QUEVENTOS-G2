@@ -4,18 +4,13 @@ import styles from './styles'
 import { getAllLocations, getLocation } from '../../services/locations'
 import MapView, { Marker, Polyline/*, Callout*/ } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions';
-//import Constants from 'expo-constants';
 import { REACT_APP_GOOGLE_MAP_API_KEY } from '@env'
-//import { getLocationPermission } from '../../services/map'
+
 import * as Location from 'expo-location';
 import LocationPreview from '../../components/LocationPreview'
 import Toast from '../../components/Toast'
 
-    export default ({route, navigation})=> {
-    //console.log(navigation.getState());
-    //console.log(route);
-    //const [data, setData] = useState([])
-    
+export default ({route, navigation})=> {
 
     const [origin, setOrigin] = useState({
         latitude: -34.5496608737801,
@@ -51,22 +46,6 @@ import Toast from '../../components/Toast'
 
         if((route.params?.geopoint)){
         const{latitude, longitude}= route.params.geopoint
-        /*  console.log(route.params.geopoint);
-            console.log(route.params.geopoint.latitude)
-            console.log(route.params.geopoint.longitude)
-            console.log(latitude);
-            console.log(longitude); 
-
-            const testLocation = {
-                latitude: -34.546030957411006,
-                longitude: -58.449353943519
-            }
-
-            console.log("Ruta harcodeada: ", testLocation)
-            console.log("Ruta param: ", paramLocation)
-            console.log("Latitud harcodeada:", typeof testLocation.latitude)
-        */
-        
         const paramLocation = {}
         paramLocation.latitude = latitude
         paramLocation.longitude = longitude
@@ -77,11 +56,8 @@ import Toast from '../../components/Toast'
 
     useEffect(()=>{
         if((route.params?.updatedSubscription)){
-            //console.log("Cambio suscripcion: ", route.params?.updatedSubscription)
-
             undoSelection('')
             setShowToast(prev => !prev)
-
             setTimeout(()=>{
                 setShowToast(prev => !prev)
             }, 3000)
@@ -103,7 +79,6 @@ import Toast from '../../components/Toast'
         }).catch(err => console.log(err))  
     
     }, [])
-    //console.log(locations)
     
     return (
         <View style={styles.container}>
@@ -160,7 +135,6 @@ import Toast from '../../components/Toast'
                     strokeWidth={6}/> :
                 null }
             </MapView>
-           {/*{locations.map((location, i) => <Text key={location.id}> {location.data.name}</Text>)}*/}
         </View>
     )
 }
