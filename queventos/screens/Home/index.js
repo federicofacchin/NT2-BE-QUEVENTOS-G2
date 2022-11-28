@@ -46,6 +46,7 @@ export default ({route, navigation})=> {
 
         if((route.params?.geopoint)){
         const{latitude, longitude}= route.params.geopoint
+
         const paramLocation = {}
         paramLocation.latitude = latitude
         paramLocation.longitude = longitude
@@ -56,8 +57,11 @@ export default ({route, navigation})=> {
 
     useEffect(()=>{
         if((route.params?.updatedSubscription)){
+
+
             undoSelection('')
             setShowToast(prev => !prev)
+
             setTimeout(()=>{
                 setShowToast(prev => !prev)
             }, 3000)
@@ -79,6 +83,7 @@ export default ({route, navigation})=> {
         }).catch(err => console.log(err))  
     
     }, [])
+   
     
     return (
         <View style={styles.container}>

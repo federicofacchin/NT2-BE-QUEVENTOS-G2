@@ -15,7 +15,7 @@ export default ()=> {
     const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
 
     useEffect(()=>{
-        console.log(authenticationData)
+        //console.log(authenticationData)
         getUser(authenticationData.uid)
         .then(data => setData(data))
         .catch(err => setErrorMessage(err.message))
