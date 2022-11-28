@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Platform, View , Text, Button} from 'react-native'
+import { View } from 'react-native'
 import styles from './styles'
-import { getAllLocations, getLocation } from '../../services/locations'
-import MapView, { Marker, Polyline/*, Callout*/ } from 'react-native-maps'
+import { getAllLocations } from '../../services/locations'
+import MapView, { Marker } from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions';
 import { REACT_APP_GOOGLE_MAP_API_KEY } from '@env'
-
 import * as Location from 'expo-location';
 import LocationPreview from '../../components/LocationPreview'
 import Toast from '../../components/Toast'
@@ -67,14 +66,9 @@ export default ({route, navigation})=> {
               return;
             }
             let { coords } = await Location.getCurrentPositionAsync({});
-            /*console.log(coords)
-            console.log("latitude", coords.latitude)
-            console.log("longitude", coords.longitude)*/
             const userCoords = {}
             userCoords.latitude = coords.latitude
             userCoords.longitude = coords.longitude
-            /*console.log(typeof userCoords.latitude)
-            console.log(typeof userCoords.longitude)*/
             setOrigin(userCoords)
           })()
 

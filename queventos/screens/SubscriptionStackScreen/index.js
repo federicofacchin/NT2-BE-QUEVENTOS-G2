@@ -5,7 +5,6 @@ import LocationDetails from '../LocationDetails';
 
 const SubscriptionStack = createNativeStackNavigator();
 
-
 const SubscriptionStackScreen = ({navigation})=>{
   return(
     <SubscriptionStack.Navigator>

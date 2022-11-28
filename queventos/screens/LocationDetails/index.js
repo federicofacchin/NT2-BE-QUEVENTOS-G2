@@ -40,81 +40,72 @@ export default ({ route, navigation })=> {
     
     return (
         <View style={styles.container}>
-            {
-    isLoading?
-    <View style={styles.loader}><ActivityIndicator size="large" color='#38bdf8'></ActivityIndicator></View>
-         :
-         <View style={{flex: 1}}>
-            <View style={styles.square}>
-                <Store size={32} color={"#6b7280"}></Store>
-            </View>
-            <View style={styles.mediaContainer}>
-                <Text style={styles.title}>{data.name}</Text>
-                <Text style={styles.description}>{data.address}</Text>
-            </View>
-            <Divider/>
-                { (contador>0)
-                ?
-                <EventLogFlatList events={data.notifications}></EventLogFlatList>
-                :
-                <View style={styles.placeholder}>
-                    <Text style={styles.muted}>Esta ubicacion no tiene eventos publicados...</Text>
-                </View>
-               }
-            <View>
-                {(activeSubscription)
-                // devuelve una promesa hay que validar que sea verdadera
-                ?
-                <View style={styles.buttonWrapper}>
-                    { isRefreshing ?
-                        <View style={styles.loader}>
-                            <ActivityIndicator size="small" color="#38bdf8" />
+            { isLoading ?
+                <View style={styles.loader}><ActivityIndicator size="large" color='#38bdf8'></ActivityIndicator></View>
+            :
+                <View style={{flex: 1}}>
+                    <View style={styles.square}>
+                        <Store size={32} color={"#6b7280"}></Store>
+                    </View>
+                    <View style={styles.mediaContainer}>
+                        <Text style={styles.title}>{data.name}</Text>
+                        <Text style={styles.description}>{data.address}</Text>
+                    </View>
+                    <Divider/>
+                    { ( contador > 0 ) ?
+                        <EventLogFlatList events={data.notifications}></EventLogFlatList>
+                    :
+                        <View style={styles.placeholder}>
+                            <Text style={styles.muted}>Esta ubicacion no tiene eventos publicados...</Text>
                         </View>
-                        : null 
                     }
-                    <Button title="Desuscribir" color="#dc2626" style={{flex: 1, alignSelf:'strech'}} disabled= {isRefreshing} onPress={() => {
-                        setIsRefreshing(prev => !prev)
-                        modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
-                        .finally(() => {
+                <View>
+                    {(activeSubscription) ?
+                        <View style={styles.buttonWrapper}>
+                        { isRefreshing ?
+                            <View style={styles.loader}>
+                                <ActivityIndicator size="small" color="#38bdf8" />
+                            </View>
+                        : null 
+                        }
+                        <Button title="Desuscribir" color="#dc2626" style={{flex: 1, alignSelf:'strech'}} disabled= {isRefreshing} onPress={() => {
                             setIsRefreshing(prev => !prev)
-                            navigation.reset({
-                                index: 0,
-                                routes: [
-                                    {name: routeNames[0], params: { updatedSubscription: true }}]
-                                })
-                        })
-                    }}></Button>
-                </View>
-                :
-                <View style={styles.buttonWrapper}>
-                    { isRefreshing ?
-                        <View style={styles.loader}>
-                            <ActivityIndicator size="small" color="#38bdf8" />
+                            modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
+                            .finally(() => {
+                                setIsRefreshing(prev => !prev)
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [
+                                        {name: routeNames[0], params: { updatedSubscription: true }}]
+                                    })
+                            })
+                        }}></Button>
                         </View>
+                    :
+                        <View style={styles.buttonWrapper}>
+                        { isRefreshing ?
+                            <View style={styles.loader}>
+                                <ActivityIndicator size="small" color="#38bdf8" />
+                            </View>
                         : null 
-                    }
-                    <Button title="Subscribir" style={{flex: 1, alignSelf:'strech'}} color="#38bdf8" disabled= {isRefreshing} onPress={() => {
-                        setIsRefreshing(prev => !prev)
-                        modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
-                        .finally(() => {
+                        }
+                        <Button title="Subscribir" style={{flex: 1, alignSelf:'strech'}} color="#38bdf8" disabled= {isRefreshing} onPress={() => {
                             setIsRefreshing(prev => !prev)
-                            navigation.reset({
-                                index: 0,
-                                routes: [
-                                    {name: routeNames[0], params: { updatedSubscription: true }}]
-                                })
-                        })
-                    }}></Button>
-                </View>    
-                }
+                            modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
+                            .finally(() => {
+                                setIsRefreshing(prev => !prev)
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [
+                                        {name: routeNames[0], params: { updatedSubscription: true }}]
+                                    })
+                            })
+                        }}></Button>
+                        </View>    
+                    }
+                </View>
             </View>
-
-        </View>
-}
-
-
-
-</View>
-        
+        }
+    </View>
     )
 }
