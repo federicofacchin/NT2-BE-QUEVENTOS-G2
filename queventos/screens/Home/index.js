@@ -95,8 +95,17 @@ import Toast from '../../components/Toast'
               setErrorMsg('Permission to access location was denied');
               return;
             }
-            let location = await Location.getCurrentPositionAsync({});
-          })
+            let { coords } = await Location.getCurrentPositionAsync({});
+            console.log(coords)
+            console.log("latitude", coords.latitude)
+            console.log("longitude", coords.longitude)
+            const userCoords = {}
+            userCoords.latitude = coords.latitude
+            userCoords.longitude = coords.longitude
+            console.log(typeof userCoords.latitude)
+            console.log(typeof userCoords.longitude)
+            setOrigin(userCoords)
+          })()
 
         getAllLocations().then(data => {
             setLocations(data)
