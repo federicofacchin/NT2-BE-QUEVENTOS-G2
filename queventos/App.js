@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { StyleSheet, } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { authStateListener } from './services/auth'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
