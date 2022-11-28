@@ -5,7 +5,7 @@ import {db} from "./firebase"
 
 const getAllLocations = () => getDocs(collection(db, "Locations")).then(docs => {
    let locations = []
-   docs.forEach(doc => locations.push({id: doc.id, data: doc.data()}))
+   docs.forEach(doc => locations.push(Object.assign(deepCopy(doc.data()), {id: doc.id})))
    return locations
 }).catch(err => err)
 
@@ -16,24 +16,4 @@ const getLocation = (locationId) => {
 }
 
 
-const createLocation = (data,locationId) =>{
-    const {name} = data
-    const docRef = doc(db, "Locations", `${locationId}`);
-
-    return updateDoc(docRef, {
-        name: name
-
-    })
-}
-
-const updateLocation = (data,locationId) => {
-    const {name} = data
-    const docRef = doc(db, "Locations", `${locationId}`);
-
-    return updateDoc(docRef, {
-        name: name
-
-    })
-}
-
-export { getLocation, getAllLocations, updateLocation, createLocation};
+export { getLocation, getAllLocations};
