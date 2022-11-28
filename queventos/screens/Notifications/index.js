@@ -16,7 +16,7 @@ export default ({navigation}) => {
     useEffect(() => {
         getNotifications(authenticationData.uid).then(results => {
             setData(results)
-            setContador(results.data.length)
+            setContador(results.length)
         })
         .catch(err => console.log(err))
         .finally(()=>setIsLoading(prev => !prev))
@@ -32,7 +32,7 @@ export default ({navigation}) => {
                 :
                 <View style={styles.wrapper}>
                     {contador > 0 ?
-                        <NotificationFlatList notificactions={data} navigation={navigation}></NotificationFlatList>
+                        <NotificationFlatList notifications={data} navigation={navigation}></NotificationFlatList>
                         :
                         <EmptyStateMessage
                             icon={<FileTray size={32} color={"#9ca3af"}></FileTray>}

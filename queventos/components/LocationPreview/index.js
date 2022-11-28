@@ -8,8 +8,8 @@ const LocationPreview = ({location, onPressDirections, onPressClose,onPressDetai
     return (
         <View style={styles.container}>
             <View style={styles.meta}>
-                <Text style={styles.title}>{location.data.name}</Text>
-                <Text>{location.data.address}</Text>
+                <Text style={styles.title}>{location.name}</Text>
+                <Text>{location.address}</Text>
             </View>
             <TouchableOpacity style={styles.closePreviewButton} onPress={()=> onPressClose()}>
                 <Close size={24} color={"#9ca3af"}></Close>

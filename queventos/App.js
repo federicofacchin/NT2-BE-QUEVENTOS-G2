@@ -7,17 +7,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
-import Home from './screens/Home'
 import Globe from './components/Icon/Globe';
 import Notifications from './screens/Notifications'
 import NotificationBell from './components/Icon/NotificationBell';
-import Subscriptions from './screens/Subscriptions';
-import LocationDetails from './screens/LocationDetails';
 import Newspaper from './components/Icon/Newspaper';
 import Profile from './screens/Profile'
 import Person from './components/Icon/Person';
 import SignOutButton from './components/SignOutButton';
 import AuthContext, {authData} from './globals/AuthContext';
+import HomeStackScreen from './screens/HomeStackScreen';
+import SubscriptionStackScreen from './screens/SubscriptionStackScreen';
 
 export default function App() {
 
@@ -29,58 +28,6 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
-  const SubscriptionStack = createNativeStackNavigator();
-  const HomeStack = createNativeStackNavigator();
-
-  const HomeStackScreen = ({navigation}) =>{
-    return(
-      <HomeStack.Navigator>
-        <HomeStack.Screen
-          name="Mapa"
-          component={Home}
-          options={
-            {
-              headerShown: false
-            }
-          }
-        />
-         <HomeStack.Screen
-          name="Detalle"
-          component={LocationDetails}
-          options={
-            {
-              headerShown: true,
-              title: "Ubicación"
-            }
-          }
-        />
-      </HomeStack.Navigator>
-    )
-  }
-  const SubscriptionStackScreen = ({navigation})=>{
-    return(
-      <SubscriptionStack.Navigator>
-
-      <SubscriptionStack.Screen
-      name="Mis subscripciones"
-      component={Subscriptions}
-      options={
-        {
-          headerShown: true
-        }
-      }/>
-      <SubscriptionStack.Screen
-      name="Ubicación"
-      component={LocationDetails}
-      options={
-        {
-          headerShown: true
-        }
-      }/>
-
-      </SubscriptionStack.Navigator>
-    )
-  }
 
   return (
     <AuthContext.Provider value={{authenticationData,setAuthenticationData}}>
