@@ -50,7 +50,12 @@ const styles = StyleSheet.create({
     },
     muted: {
       color: "#9ca3af"
-    }
+    },
+    buttonWrapper: {
+      marginTop: 32,
+      alignSelf: "stretch",
+      position: "relative"
+  },
   });
 
 export default styles
