@@ -17,6 +17,7 @@ export default ({ route, navigation })=> {
     const routeNames = useNavigationState(state => state.routeNames)
     const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
     const [ activeSubscription, setActiveSubscription ] = useState(false)
+    const [ isRefreshing, setIsRefreshing ] = useState(false)
     useEffect(()=>{
         const { id } = route.params
         getLocation(id)
@@ -64,28 +65,55 @@ export default ({ route, navigation })=> {
                 {(activeSubscription)
                 // devuelve una promesa hay que validar que sea verdadera
                 ?
-                <Button title="Desuscribir" color="#dc2626" onPress={() => {
-                    modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
-                    .finally(() => navigation.reset({
-                        index: 0,
-                        routes: [
-                            {name: routeNames[0], params: { updatedSubscription: true }}]
-                        }))
-                }}></Button>
+                <View style={styles.buttonWrapper}>
+                    { isRefreshing ?
+                        <View style={styles.loader}>
+                            <ActivityIndicator size="small" color="#38bdf8" />
+                        </View>
+                        : null 
+                    }
+                    <Button title="Desuscribir" color="#dc2626" style={{flex: 1, alignSelf:'strech'}} disabled= {isRefreshing} onPress={() => {
+                        setIsRefreshing(prev => !prev)
+                        modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
+                        .finally(() => {
+                            setIsRefreshing(prev => !prev)
+                            navigation.reset({
+                                index: 0,
+                                routes: [
+                                    {name: routeNames[0], params: { updatedSubscription: true }}]
+                                })
+                        })
+                    }}></Button>
+                </View>
                 :
-                <Button title="Subscribir" color="#38bdf8" onPress={() => {
-                    modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
-                    .finally(() => navigation.reset({
-                        index: 0,
-                        routes: [
-                            {name: routeNames[0], params: { updatedSubscription: true }}]
-                        }))
-                }}></Button>
+                <View style={styles.buttonWrapper}>
+                    { isRefreshing ?
+                        <View style={styles.loader}>
+                            <ActivityIndicator size="small" color="#38bdf8" />
+                        </View>
+                        : null 
+                    }
+                    <Button title="Subscribir" style={{flex: 1, alignSelf:'strech'}} color="#38bdf8" disabled= {isRefreshing} onPress={() => {
+                        setIsRefreshing(prev => !prev)
+                        modifySubscription(activeSubscription,route.params.id,authenticationData.uid)
+                        .finally(() => {
+                            setIsRefreshing(prev => !prev)
+                            navigation.reset({
+                                index: 0,
+                                routes: [
+                                    {name: routeNames[0], params: { updatedSubscription: true }}]
+                                })
+                        })
+                    }}></Button>
+                </View>    
                 }
             </View>
 
         </View>
 }
+
+
+
 </View>
         
     )
