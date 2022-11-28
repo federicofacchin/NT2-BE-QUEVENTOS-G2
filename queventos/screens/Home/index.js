@@ -17,12 +17,7 @@ export default ({route, navigation})=> {
         longitude: -58.45406203477659
     });
     const [destination, setDestination] = useState("");
-    const [testDestination, setTestDestination] = useState({
-        latitude: -34.60205913117039,
-        longitude: -58.36844848950401
-    });
     const [locations,setLocations] = useState([])
-    const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
     const [selectedLocation, setSelectedLocation] = useState('');
@@ -71,8 +66,17 @@ export default ({route, navigation})=> {
               setErrorMsg('Permission to access location was denied');
               return;
             }
-            let location = await Location.getCurrentPositionAsync({});
-          })
+            let { coords } = await Location.getCurrentPositionAsync({});
+            console.log(coords)
+            console.log("latitude", coords.latitude)
+            console.log("longitude", coords.longitude)
+            const userCoords = {}
+            userCoords.latitude = coords.latitude
+            userCoords.longitude = coords.longitude
+            console.log(typeof userCoords.latitude)
+            console.log(typeof userCoords.longitude)
+            setOrigin(userCoords)
+          })()
 
         getAllLocations().then(data => {
             setLocations(data)

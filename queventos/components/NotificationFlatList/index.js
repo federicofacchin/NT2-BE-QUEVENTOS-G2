@@ -1,18 +1,18 @@
 import { FlatList } from "react-native";
-import Notificaction from "../Notificaction";
+import Notification from "../Notification";
 
-export default ({notificactions, navigation})=>{
-   // console.log(notificactions.data)
-       const renderNotificaction = ({item})=>{
+export default ({notifications, navigation})=>{
+        //console.log(notificactions)
+        const renderNotificaction = ({item})=>{
 
         return (
-            <Notificaction notificaction={item} navigation={navigation}/>
-             )
+            <Notification notification={item} navigation={navigation}/>
+        )
     }
 
     return (
         <FlatList
-            data={notificactions.data}
+            data={notifications}
             renderItem={renderNotificaction}     
         />
     )
