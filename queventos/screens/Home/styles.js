@@ -23,6 +23,17 @@ const styles = StyleSheet.create({
       paddingHorizontal: 18,
       paddingVertical: 12,
       borderRadius: 20,
+    },
+    loader: {
+      flex: 1,
+      alignSelf: "stretch",
+      justifyContent: "center",
+      al: "center",
+      position: 'absolute',
+      top:"50%",
+      right: 0,
+      left: 0,
+      zIndex: 10
     }
   });
 

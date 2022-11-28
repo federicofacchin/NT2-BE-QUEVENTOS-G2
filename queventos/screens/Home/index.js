@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import { getAllLocations } from '../../services/locations'
 import MapView, { Marker } from 'react-native-maps'
@@ -15,11 +15,12 @@ export default ({route, navigation})=> {
         latitude: -34.5496608737801,
         longitude: -58.45406203477659
     });
-    const [destination, setDestination] = useState("");
+    const [destination, setDestination] = useState("")
     const [locations,setLocations] = useState([])
-    const [errorMsg, setErrorMsg] = useState(null);
-
-    const [selectedLocation, setSelectedLocation] = useState('');
+    const [errorMsg, setErrorMsg] = useState(null)
+    const [ isLoading, setIsLoading ] = useState(true)
+    
+    const [selectedLocation, setSelectedLocation] = useState('')
     const undoSelection = () => {
         setSelectedLocation('') 
     }
@@ -74,13 +75,16 @@ export default ({route, navigation})=> {
 
         getAllLocations().then(data => {
             setLocations(data)
-        }).catch(err => console.log(err))  
+        }).catch(err => console.log(err)).finally(() => {
+            setTimeout(() => setIsLoading(previous => !previous), 1000)
+        })
     
     }, [])
     
     return (
-        <View style={styles.container}>
-
+        <View style={styles.container} >
+            { (!isLoading) ? 
+            <View style={{flex:1, alignSelf: 'stretch'}}>
             {showToast ?
                 <Toast message={"Cambios guardados"}></Toast>
                 :
@@ -133,6 +137,10 @@ export default ({route, navigation})=> {
                     strokeWidth={6}/> :
                 null }
             </MapView>
+            </View>
+        :    
+            <View style={styles.loader}><ActivityIndicator size="large" color="#38bdf8"/></View>
+        }
         </View>
     )
 }
