@@ -2,13 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import Close from '../Icon/Close'
 
-
 const LocationPreview = ({location, onPressDirections, onPressClose,onPressDetails}) => {
-
-    //console.log(location)
-   // const { name, address, coordinates } = location.data
-
-    //console.log(onPressDirections)
 
     return (
         <View style={styles.container}>

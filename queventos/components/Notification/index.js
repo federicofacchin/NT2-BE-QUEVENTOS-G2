@@ -4,8 +4,7 @@ import Globe from '../Icon/Globe'
 import styles from './styles'
 
 export default ({notification, navigation}) => {
-    //console.log(notification)
-
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{notification.title}</Text>

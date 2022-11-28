@@ -1,6 +1,5 @@
-import Constants from 'expo-constants';
 import { useState, useEffect, useContext } from 'react'
-import { ScrollView, View, Button, Text, ActivityIndicator } from 'react-native'
+import { ScrollView, View, Button, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import Logo from '../../components/Logo'
 import Title from '../../components/Title'
@@ -33,17 +32,6 @@ const Login = ({navigation})=> {
 
     const [alertMessage, setAlertMessage] = useState('')
     
-    // Levanta las variables de entorno de las constantes de expo
-    //console.log(Constants.manifest.extra)
-
-    // Importa el archivo donde está la instancia de auth: se lo pasa más abajo a la función del sign in
-    //console.log(auth)
-
-    // Importa la función para el sign in que provee firebase 
-    //console.log(signIn)
-    //console.log(createUser)
-
-
     return (
         <View style={styles.container}>
             <ScrollView>

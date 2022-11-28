@@ -3,7 +3,6 @@ import styles from './styles'
 import LogOut from '../Icon/LogOut'
 import { signOut } from '../../services/auth'
 
-
 export default ()=>{
     return (
         <TouchableOpacity style={styles.container} onPress={()=> signOut()}>

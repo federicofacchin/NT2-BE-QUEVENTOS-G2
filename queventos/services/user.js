@@ -1,14 +1,8 @@
 import { db } from "./firebase"
 import { collection, doc, getDoc, getDocs, updateDoc, setDoc, addDoc, query, where, limit } from "firebase/firestore";
 
-// Add a new document with a generated id.
-
-
-//const userId = "sI95hZXXc3flD6ql62nIxJ0Anem2"
-
 const getUser = (userId)=> {
     const docRef = doc(db, "Users", `${userId}`);
-    //const docRef = doc(db, "Users", "1");
     
     return getDoc(docRef)
     .then(doc => doc.exists() ? doc.data() : Promise.reject(new Error("No encontramos tus datos")))
@@ -32,9 +26,6 @@ const searchUserByMail = (data) => {
 }
 
 const addUser = (name, email, password, id) => {
-    //console.log("Voy a registrar este usuario:")
-    //console.log(name)
-    //console.log(id)
     const newUser = {
         name: name,
         email: email,

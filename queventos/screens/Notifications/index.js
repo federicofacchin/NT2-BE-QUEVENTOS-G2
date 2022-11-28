@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { View , Text, ActivityIndicator } from 'react-native'
+import { View , ActivityIndicator } from 'react-native'
 import styles from './styles'
 import { getNotifications } from '../../services/notifications'
 import NotificationFlatList from '../../components/NotificationFlatList'
