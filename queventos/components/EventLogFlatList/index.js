@@ -3,8 +3,6 @@ import Event from "../Event";
 
 export default ({events})=>{
 
-    //console.log(events)
-
     const renderEvent = ({item})=>{
 
         return (

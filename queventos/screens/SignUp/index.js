@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import { useState, useEffect, useContext } from 'react'
 import { ScrollView, View, ActivityIndicator, Button } from 'react-native'
 import styles from './styles'
@@ -11,13 +10,8 @@ import { auth } from "../../services/firebase"
 import { createUser } from "../../services/auth"
 import helper from '../../helpers';
 import authenticationContext from '../../globals/AuthContext'
-import { addUser, searchUserByMail } from '../../services/user'
-
 
 export default ({navigation})=> {
-    //const data = {name: "Nico", email: "sistemas.nicolas@gmail.com"}
-    //searchUserByMail(data)
-    //addUser(data)
     const {authenticationData, setAuthenticationData } = useContext(authenticationContext)
     const [user, setUser] = useState({})
     const [ notValid, setNotValid ] = useState(true)
@@ -39,16 +33,6 @@ export default ({navigation})=> {
     const [isLoading, setIsLoading] = useState(false)
 
     const [alertMessage, setAlertMessage] = useState('')
-
-    // Levanta las variables de entorno de las constantes de expo
-    //console.log(Constants.manifest.extra)
-
-    // Importa el archivo donde está la instancia de auth: se lo pasa más abajo a la función del sign in
-    //console.log(auth)
-
-    // Importa la función para el sign in que provee firebase 
-    //console.log(createUser)
-
 
     return (
         <View style={styles.container}>
@@ -93,9 +77,7 @@ export default ({navigation})=> {
                 title="Crear cuenta"
                 disabled={notValid}
                 onPress={()=> {
-
                     setIsLoading(prev => !prev)
-
                     createUser(auth, user, setAuthenticationData)
                     .catch(err => setAlertMessage(err.message))
                     .finally(()=> {

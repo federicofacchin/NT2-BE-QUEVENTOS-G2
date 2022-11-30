@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
-import { View , Button, ActivityIndicator, Text} from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import SubscriptionsFlatList from '../../components/SubscriptionFlatList'
-import {getSubscriptions} from '../../services/subscriptions'
+import { getSubscriptions } from '../../services/subscriptions'
 import AuthContext from '../../globals/AuthContext'
 import EmptyStateMessage from '../../components/EmptyStateMessage'
 import FileTray from '../../components/Icon/FileTray'
@@ -13,8 +13,6 @@ export default ({navigation})=> {
     const [subscriptions, setSubscriptions] = useState([])
     const [ contador, setContador ] = useState()
 
-    //console.log(navigation)
-
     useEffect(()=>{
         getSubscriptions(authenticationData.uid).then((results) => {
             setSubscriptions(results)
@@ -24,7 +22,6 @@ export default ({navigation})=> {
         .finally(()=>setIsLoading(prev=> !prev))
 
     }, [])
-    
 
     return (
         <View style={styles.container}>

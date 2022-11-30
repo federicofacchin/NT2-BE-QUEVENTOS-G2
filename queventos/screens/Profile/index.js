@@ -15,7 +15,6 @@ export default ()=> {
     const {authenticationData, setAuthenticationContext} = useContext(AuthContext) 
 
     useEffect(()=>{
-        //console.log(authenticationData)
         getUser(authenticationData.uid)
         .then(data => setData(data))
         .catch(err => setErrorMessage(err.message))
@@ -24,14 +23,8 @@ export default ()=> {
         })
         
     }, [])
-
-    /*useEffect(()=>{
-        console.log("Detectó un cambio: " + data)
-
-    }, [data])*/
     
-    const [ notValid, setNotValid ] = useState(false)
-
+    //const [ notValid, setNotValid ] = useState(false)
 
     return (
         <View style={styles.container}>

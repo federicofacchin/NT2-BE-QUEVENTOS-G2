@@ -1,6 +1,5 @@
-import { TextInput, Text, View, StyleSheet } from 'react-native';
+import { TextInput, Text, View } from 'react-native';
 import styles from './styles'
-
 
 export default ({label, layout, placeholder, onChangeHandler, disabled, isSecure, helperText}) => {
 
