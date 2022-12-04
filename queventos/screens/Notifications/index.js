@@ -7,13 +7,13 @@ import EmptyStateMessage from '../../components/EmptyStateMessage'
 import AuthContext from '../../globals/AuthContext'
 import FileTray from '../../components/Icon/FileTray'
 
-export default ({navigation})=> {
+export default ({navigation}) => {
     const [isLoading, setIsLoading]= useState(true)
     const { authenticationData } = useContext(AuthContext)
     const [data, setData] = useState([])
     const [ contador, setContador ] = useState()
 
-    useEffect(()=>{
+    useEffect(() => {
         getNotifications(authenticationData.uid).then(results => {
             setData(results)
             setContador(results.length)
